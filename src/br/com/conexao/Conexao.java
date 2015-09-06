@@ -1,4 +1,4 @@
-package conexao;
+package br.com.conexao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

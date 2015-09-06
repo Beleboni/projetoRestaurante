@@ -1,13 +1,14 @@
-package model;
+package br.com.model;
 
 public class Funcionario {
 	private Integer codigo;
 	private String nome;
 	private String cpf;
 	private Integer telefone;
-	private String setor;
+	private Setor setor;
 	private String usuario;
 	private String senha;
+	private boolean status = true;
 	
 	//CONSTRUTOR VAZIO
 	public Funcionario() {
@@ -15,7 +16,7 @@ public class Funcionario {
 	}
 	//CONSTRUTOR CHEIO
 	public Funcionario(Integer codigo, String nome, String cpf,
-			Integer telefone, String setor, String usuario, String senha) {
+			Integer telefone, Setor setor, String usuario, String senha, boolean status) {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -23,6 +24,7 @@ public class Funcionario {
 		this.setor = setor;
 		this.usuario = usuario;
 		this.senha = senha;
+		this.status = status;
 	}
 	
 	//GETS E SETTERS
@@ -50,10 +52,10 @@ public class Funcionario {
 	public void setTelefone(Integer telefone) {
 		this.telefone = telefone;
 	}
-	public String getSetor() {
+	public Setor getSetor() {
 		return setor;
 	}
-	public void setSetor(String setor) {
+	public void setSetor(Setor setor) {
 		this.setor = setor;
 	}
 	public String getUsuario() {
@@ -67,6 +69,12 @@ public class Funcionario {
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	public boolean getStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 	
 	
