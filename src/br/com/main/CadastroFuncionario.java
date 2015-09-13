@@ -6,165 +6,196 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 
 import br.com.dao.FuncionarioDAO;
 import br.com.jdbc.FuncionarioJDBC;
+import br.com.model.DateUtil;
 import br.com.model.Funcionario;
 import br.com.model.Setor;
-
 
 public class CadastroFuncionario extends javax.swing.JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
-	private DefaultTableModel dtmProduto;
+	private DefaultTableModel dtmLista;
 	private JScrollPane jspRolagem;
 	private JTable jtTabela;
-	
-	public CadastroFuncionario() {
-        initComponents();
-    }
+	private JLabel jlbAdmissaoOuDemissao;
+	private JTextField jtfAdmissaoOuDemissao;
 
-    private void initComponents() {
+	private boolean demissao;
+	private Funcionario funcionario;
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jlbNome = new javax.swing.JLabel();
-        jlbTelefone = new javax.swing.JLabel();
-        jlbCpf = new javax.swing.JLabel();
-        jlbSetor = new javax.swing.JLabel();
-        jlbUsuario = new javax.swing.JLabel();
-        jlbSenha = new javax.swing.JLabel();
-        jtfNome = new javax.swing.JTextField();
-        jtfTelefone = new javax.swing.JTextField();
-        jtfCpf = new javax.swing.JTextField();
-        jtfUsuario = new javax.swing.JTextField();
-        jbCadastro = new javax.swing.JButton();
-        jbtAlterar = new javax.swing.JButton();
-        jbtExcluir = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtbMostrarTodos = new javax.swing.JTable();
-        jlbTitulo1 = new javax.swing.JLabel();
-        jlbTitulo2 = new javax.swing.JLabel();
-        jcbSetor = new javax.swing.JComboBox<String>();
-        jpfSenha = new javax.swing.JPasswordField();
+	public CadastroFuncionario(boolean demissao, Funcionario funcionario) {
+		this.demissao = demissao;
+		this.funcionario = funcionario;
+		initComponents();
+	}
 
+	public boolean isDemissao() {
+		return this.demissao;
+	}
 
-        setClosable(true);
-        setIconifiable(true);
-        setTitle("CADASTRO FUNCIONARIO");
-        getContentPane().setLayout(null);
-        
-        //LABELS
-        jlbTitulo1.setFont(new java.awt.Font("Miriam", 1, 14)); // NOI18N
-        jlbTitulo1.setText("CADASTRAR  NOVO FUNCIONARIO:");
-        getContentPane().add(jlbTitulo1);
-        jlbTitulo1.setBounds(20, 10, 280, 15);
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
 
-        jlbTitulo2.setFont(new java.awt.Font("Miriam", 1, 14)); // NOI18N
-        jlbTitulo2.setText("TODOS OS FUNCIONARIOS CADASTRADOS: ");
-        getContentPane().add(jlbTitulo2);
-        jlbTitulo2.setBounds(400, 10, 350, 20);
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
 
-        jlbNome.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
-        jlbNome.setText("NOME:");
-        getContentPane().add(jlbNome);
-        jlbNome.setBounds(20, 40, 70, 30);
+	private void initComponents() {
+		jlbNome = new javax.swing.JLabel();
+		jlbTelefone = new javax.swing.JLabel();
+		jlbCpf = new javax.swing.JLabel();
+		jlbSetor = new javax.swing.JLabel();
+		jlbUsuario = new javax.swing.JLabel();
+		jlbSenha = new javax.swing.JLabel();
+		jtfNome = new javax.swing.JTextField();
+		jtfTelefone = new javax.swing.JTextField();
+		jtfAdmissaoOuDemissao = new javax.swing.JTextField();
+		jtfCpf = new javax.swing.JTextField();
+		jtfUsuario = new javax.swing.JTextField();
+		jbCadastro = new javax.swing.JButton();
+		jbtAlterar = new javax.swing.JButton();
+		jlbTitulo1 = new javax.swing.JLabel();
+		jlbTitulo2 = new javax.swing.JLabel();
+		jlbAdmissaoOuDemissao = new javax.swing.JLabel();
+		jcbSetor = new javax.swing.JComboBox<String>();
+		jpfSenha = new javax.swing.JPasswordField();
 
-        jlbTelefone.setFont(new java.awt.Font("Trebuchet MS", 1, 12));
-        jlbTelefone.setText("TELEFONE:");
-        getContentPane().add(jlbTelefone);
-        jlbTelefone.setBounds(20, 120, 100, 30);
+		setClosable(true);
+		setIconifiable(true);
+		setTitle("CADASTRO FUNCIONARIO");
+		getContentPane().setLayout(null);
 
-        jlbCpf.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
-        jlbCpf.setText("CPF:");
-        getContentPane().add(jlbCpf);
-        jlbCpf.setBounds(20, 80, 60, 30);
+		// LABELS
+		jlbTitulo1.setFont(new java.awt.Font("Miriam", 1, 14)); // NOI18N
+		jlbTitulo1.setText("CADASTRAR  NOVO FUNCIONARIO:");
+		getContentPane().add(jlbTitulo1);
+		jlbTitulo1.setBounds(20, 10, 280, 15);
 
-        jlbSetor.setFont(new java.awt.Font("Trebuchet MS", 1, 12));
-        jlbSetor.setText("SETOR:");
-        getContentPane().add(jlbSetor);
-        jlbSetor.setBounds(20, 160, 80, 30);
+		jlbTitulo2.setFont(new java.awt.Font("Miriam", 1, 14)); // NOI18N
+		jlbTitulo2.setText("TODOS OS FUNCIONARIOS CADASTRADOS: ");
+		getContentPane().add(jlbTitulo2);
+		jlbTitulo2.setBounds(400, 10, 350, 20);
 
-        jlbUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 12));
-        jlbUsuario.setText("USUARIO:");
-        getContentPane().add(jlbUsuario);
-        jlbUsuario.setBounds(20, 200, 70, 30);
+		jlbNome.setFont(new java.awt.Font("Trebuchet MS", 1, 12));
+		jlbNome.setText("NOME:");
+		getContentPane().add(jlbNome);
+		jlbNome.setBounds(20, 40, 70, 30);
 
-        jlbSenha.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
-        jlbSenha.setText("SENHA:");
-        getContentPane().add(jlbSenha);
-        jlbSenha.setBounds(20, 240, 80, 30);
-        
-        //TEXTFIELDS
-        jtfNome.setFont(new java.awt.Font("Trebuchet MS", 0, 12));
-        getContentPane().add(jtfNome);
-        jtfNome.setBounds(70, 40, 250, 30);
-        
-        getContentPane().add(jtfTelefone);
-        jtfTelefone.setBounds(90, 120, 120, 30);
-        
-        getContentPane().add(jtfCpf);
-        jtfCpf.setBounds(70, 80, 110, 30);
-        
-        getContentPane().add(jtfUsuario);
-        jtfUsuario.setBounds(80, 200, 132, 30);
-        
-        getContentPane().add(jpfSenha);
-        jpfSenha.setBounds(80, 240, 130, 30);
-               
-        //JCOMBOBOX
-        jcbSetor = new JComboBox<String>();
-        getContentPane().add(jcbSetor);
-        jcbSetor.setBounds(80, 160, 170, 30);
-        jcbSetor.addItem("ADMINISTRADOR");
-        jcbSetor.addItem("CAIXA");
-        jcbSetor.addItem("COZINHEIRO");
-        jcbSetor.addItem("GARÇOM");
-        
-        dtmProduto = new DefaultTableModel();
-		dtmProduto.addColumn("COD.");
-		dtmProduto.addColumn("NOME");
-		dtmProduto.addColumn("SETOR");
-		dtmProduto.addColumn("TELEFONE");
-		
-		//POPULANDO A TABELA
+		jlbTelefone.setFont(new java.awt.Font("Trebuchet MS", 1, 12));
+		jlbTelefone.setText("TELEFONE:");
+		getContentPane().add(jlbTelefone);
+		jlbTelefone.setBounds(20, 120, 100, 30);
+
+		jlbCpf.setFont(new java.awt.Font("Trebuchet MS", 1, 12));
+		jlbCpf.setText("CPF:");
+		getContentPane().add(jlbCpf);
+		jlbCpf.setBounds(20, 80, 60, 30);
+
+		jlbSetor.setFont(new java.awt.Font("Trebuchet MS", 1, 12));
+		jlbSetor.setText("SETOR:");
+		getContentPane().add(jlbSetor);
+		jlbSetor.setBounds(20, 160, 80, 30);
+
+		jlbAdmissaoOuDemissao.setFont(new java.awt.Font("Trebuchet MS", 1, 12));
+		jlbAdmissaoOuDemissao.setText(this.isDemissao() ? "DEMISSÃO:"
+				: "ADMISSÃO:");
+		//System.out.println(jlbAdmissaoOuDemissao.getText());
+		getContentPane().add(jlbAdmissaoOuDemissao);
+		jlbAdmissaoOuDemissao.setBounds(20, 200, 80, 30);
+
+		jlbUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 12));
+		jlbUsuario.setText("USUARIO:");
+		getContentPane().add(jlbUsuario);
+		jlbUsuario.setBounds(20, 240, 70, 30);
+
+		jlbSenha.setFont(new java.awt.Font("Trebuchet MS", 1, 12));
+		jlbSenha.setText("SENHA:");
+		getContentPane().add(jlbSenha);
+		jlbSenha.setBounds(20, 280, 80, 30);
+
+		// TEXTFIELDS
+		getContentPane().add(jtfNome);
+		jtfNome.setBounds(70, 40, 250, 30);
+
+		getContentPane().add(jtfTelefone);
+		jtfTelefone.setBounds(90, 120, 120, 30);
+
+		getContentPane().add(jtfCpf);
+		jtfCpf.setBounds(70, 80, 110, 30);
+
+		getContentPane().add(jtfAdmissaoOuDemissao);
+		jtfAdmissaoOuDemissao.setBounds(90, 200, 110, 30);
+
+		getContentPane().add(jtfUsuario);
+		jtfUsuario.setBounds(80, 240, 132, 30);
+
+		getContentPane().add(jpfSenha);
+		jpfSenha.setBounds(80, 280, 130, 30);
+
+		// JCOMBOBOX
+		jcbSetor = new JComboBox<String>();
+		getContentPane().add(jcbSetor);
+		jcbSetor.setBounds(80, 160, 170, 30);
+		jcbSetor.addItem("ADMINISTRADOR");
+		jcbSetor.addItem("CAIXA");
+		jcbSetor.addItem("COZINHEIRO");
+		jcbSetor.addItem("GARÇOM");
+
+		dtmLista = new DefaultTableModel();
+		dtmLista.addColumn("COD.");
+		dtmLista.addColumn("NOME");
+		dtmLista.addColumn("SETOR");
+		dtmLista.addColumn("TELEFONE");
+		dtmLista.addColumn("ADMISSÃO");
+		dtmLista.addColumn("DEMISSÃO");
+
+		// POPULANDO A TABELA
 		FuncionarioDAO funcionarioDAO = new FuncionarioJDBC();
-		funcionarioDAO.todos().forEach(f -> dtmProduto.addRow(new String[] {
-				f.getCodigo().toString(), f.getNome().toString(), f.getSetor().toString(), f.getTelefone().toString()
-		}));
+		funcionarioDAO.todos().forEach(
+				f -> dtmLista.addRow(new String[] { f.getCodigo().toString(),
+						f.getNome().toString(), f.getSetor().toString(),
+						f.getTelefone().toString(),
+						DateUtil.toString(f.getAdmissao()),
+						DateUtil.toString(f.getDemissao()) }));
 
-		jtTabela = new JTable(dtmProduto);
+		jtTabela = new JTable(dtmLista);
 		jspRolagem = new JScrollPane(jtTabela);
-		jspRolagem.setBounds(400, 40, 373, 220);
+		jspRolagem.setBounds(400, 40, 660, 280);
 		jspRolagem.setBackground(Color.white);
 		getContentPane().add(jspRolagem);
-      
 
-       
-        //FIM DA TELA
-        setBounds(310, 130, 950, 450);
-        
-        //AÇÕES DE BOTOES
-        jbCadastro.setText("CADASTRAR");
-        jbCadastro.addActionListener(new ActionListener() {
-        	//CADASTRAR NOVO FUNCIONARIO
-    		@Override
-    		public void actionPerformed(ActionEvent e) {
-    			//TESTANDO SE ESTAO VAZIAS
-    			if (jtfNome.getText().equals("") || jtfCpf.getText().equals("") || jtfTelefone.getText().equals("") || jtfUsuario.getText().equals("") || jpfSenha.getPassword().equals("")){
-    				JOptionPane.showMessageDialog(null, "Preencha todos os dados !!!");
-    			
-    			}else{
+		// FIM DA TELA
+		setBounds(100, 130, 1100, 420);
+
+		// AÇÕES DE BOTOES
+		jbCadastro.setText("CADASTRAR");
+		jbCadastro.addActionListener(new ActionListener() {
+
+			// CADASTRAR NOVO FUNCIONARIO
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TESTANDO SE ESTAO VAZIAS
+				if (jtfNome.getText().equals("") || jtfCpf.getText().equals("")
+						|| jtfTelefone.getText().equals("")
+						|| jtfUsuario.getText().equals("")
+						|| jpfSenha.getPassword().equals("")) {
+					JOptionPane.showMessageDialog(null,
+							"Preencha todos os dados !!!");
+
+				} else {
 					// INICIA AS CLASSES RESPONSAVEIS POR CADASTRAR UM NOVO
 					// VALOR
 					FuncionarioDAO funcionarioDAO = new FuncionarioJDBC();
-					Funcionario funcionario = new Funcionario();
+					Funcionario funcionario = getFuncionario();
 
 					funcionario.setNome(jtfNome.getText());
 					funcionario.setCpf(jtfCpf.getText());
@@ -187,75 +218,81 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 						funcionario.setSetor(Setor.GARCOM);
 						break;
 					}
+
+					if (!isDemissao()) {
+						funcionario.setAdmissao(DateUtil
+								.toLocalDate(jtfAdmissaoOuDemissao.getText()));
+						funcionario.setDemissao(null);
+					} else {
+						funcionario.setDemissao(DateUtil
+								.toLocalDate(jtfAdmissaoOuDemissao.getText()));
+					}
 					funcionario.setUsuario(jtfUsuario.getText());
 					funcionario.setSenha(new String(jpfSenha.getPassword()));
-					funcionario.setStatus(true);
 
 					// AÇÃO QUE CADASTRA O FUNCIONARIO NO BANCO
 					funcionarioDAO.inserir(funcionario);
 
 					JOptionPane.showMessageDialog(null,
 							"Cadastro realizado com sucesso !!!");
-					
-					//LIMPAR CAMPOS
+
+					// LIMPAR CAMPOS
 					jtfNome.setText("");
 					jtfCpf.setText("");
 					jtfTelefone.setText("");
 					jtfUsuario.setText("");
 					jpfSenha.setText("");
-					
-					// LIMPAR TABELA
-					dtmProduto.setNumRows(0);
-					//ATUALIZANDO A TABELA
-					funcionarioDAO.todos().forEach(f -> dtmProduto.addRow(new String[] {
-							f.getCodigo().toString(), f.getNome().toString(), f.getSetor().toString(), f.getTelefone().toString()
-					}));
-				}
-    		}
-        });
-        getContentPane().add(jbCadastro);
-        jbCadastro.setBounds(30, 290, 213, 30);
-        jbtAlterar.setIcon(new ImageIcon("img/2.png"));
-        jbtAlterar.setText("ALTERAR");
-        getContentPane().add(jbtAlterar);
-        jbtAlterar.setBounds(660, 290, 117, 30);
-        jbtAlterar.addActionListener(new ActionListener() {
-    		
-    		@Override
-    		public void actionPerformed(ActionEvent e) {
-    			// CHAMANDO A TELA DE ALTERAR
-    			JOptionPane.showMessageDialog(null, "Escolha alguém da tabela para alterar");
-    			AlterarFuncionario at = new AlterarFuncionario();
-    			Principal.jdpPrincipal.add(at);
-    			at.setVisible(true);
-    			dispose();
-    			
-    		}
-    	});
 
-               
-    }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JButton jbCadastro;
-    private javax.swing.JButton jbtAlterar;
-    private javax.swing.JButton jbtExcluir;
-    private javax.swing.JComboBox<String> jcbSetor;
-    private javax.swing.JLabel jlbCpf;
-    private javax.swing.JLabel jlbNome;
-    private javax.swing.JLabel jlbSenha;
-    private javax.swing.JLabel jlbSetor;
-    private javax.swing.JLabel jlbTelefone;
-    private javax.swing.JLabel jlbTitulo1;
-    private javax.swing.JLabel jlbTitulo2;
-    private javax.swing.JLabel jlbUsuario;
-    private javax.swing.JPasswordField jpfSenha;
-    private javax.swing.JTable jtbMostrarTodos;
-    private javax.swing.JTextField jtfCpf;
-    private javax.swing.JTextField jtfNome;
-    private javax.swing.JTextField jtfTelefone;
-    private javax.swing.JTextField jtfUsuario;
-    // End of variables declaration//GEN-END:variables
- }
+					// LIMPAR TABELA
+					dtmLista.setNumRows(0);
+					// ATUALIZANDO A TABELA
+					funcionarioDAO.todos().forEach(
+							f -> dtmLista.addRow(new String[] {
+									f.getCodigo().toString(),
+									f.getNome().toString(),
+									f.getSetor().toString(),
+									f.getTelefone().toString() }));
+				}
+			}
+		});
+		getContentPane().add(jbCadastro);
+		jbCadastro.setBounds(20, 340, 170, 30);
+
+		jbtAlterar.setIcon(new ImageIcon("img/2.png"));
+		jbtAlterar.setText("ALTERAR");
+		getContentPane().add(jbtAlterar);
+		jbtAlterar.setBounds(400, 340, 117, 30);
+		jbtAlterar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int linha = jtTabela.getSelectedRow();
+				Integer codigo = Integer.valueOf((String) dtmLista.getValueAt(
+						linha, 0));
+				new CadastroFuncionario(true, funcionarioDAO.buscar(codigo));
+				// JOptionPane.showMessageDialog(null,
+				// "Escolha alguém da tabela para alterar");
+			}
+		});
+
+	}
+
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JButton jbCadastro;
+	private javax.swing.JButton jbtAlterar;
+	private javax.swing.JComboBox<String> jcbSetor;
+	private javax.swing.JLabel jlbCpf;
+	private javax.swing.JLabel jlbNome;
+	private javax.swing.JLabel jlbSenha;
+	private javax.swing.JLabel jlbSetor;
+	private javax.swing.JLabel jlbTelefone;
+	private javax.swing.JLabel jlbTitulo1;
+	private javax.swing.JLabel jlbTitulo2;
+	private javax.swing.JLabel jlbUsuario;
+	private javax.swing.JPasswordField jpfSenha;
+	private javax.swing.JTextField jtfCpf;
+	private javax.swing.JTextField jtfNome;
+	private javax.swing.JTextField jtfTelefone;
+	private javax.swing.JTextField jtfUsuario;
+	// End of variables declaration//GEN-END:variables
+}

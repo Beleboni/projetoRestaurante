@@ -9,6 +9,7 @@ import java.util.List;
 
 import br.com.conexao.Conexao;
 import br.com.dao.FuncionarioDAO;
+import br.com.model.DateUtil;
 import br.com.model.Funcionario;
 import br.com.model.Setor;
 
@@ -26,7 +27,7 @@ public class FuncionarioJDBC implements FuncionarioDAO {
 	@Override
 	public void inserir(Funcionario funcionario) {
 		// INSERIR FUNCIONARIO
-		String sql = "insert into funcionario (nome, cpf, telefone, setor, usuario, senha, status) value (?,?,?,?,?,?,?)";
+		String sql = "insert into funcionario (nome, cpf, telefone, setor, usuario, senha, admissao, demissao) value (?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, funcionario.getNome());
@@ -35,7 +36,8 @@ public class FuncionarioJDBC implements FuncionarioDAO {
 			pstmt.setString(4, funcionario.getSetor().toString());
 			pstmt.setString(5, funcionario.getUsuario());
 			pstmt.setString(6, funcionario.getSenha());
-			pstmt.setBoolean(7, funcionario.getStatus());
+			pstmt.setString(7, funcionario.getAdmissao().toString());
+			pstmt.setString(8, funcionario.getDemissao() != null ? funcionario.getDemissao().toString()  : null);
 			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -56,7 +58,6 @@ public class FuncionarioJDBC implements FuncionarioDAO {
 			pstmt.setString(4, funcionario.getSetor().toString());
 			pstmt.setString(5, funcionario.getUsuario());
 			pstmt.setString(6, funcionario.getSenha());
-			pstmt.setBoolean(7, funcionario.getStatus());
 			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -99,6 +100,8 @@ public class FuncionarioJDBC implements FuncionarioDAO {
 					funcionario.setCpf(rs.getString("cpf"));
 					funcionario.setTelefone(rs.getInt("telefone"));
 					funcionario.setSetor(Setor.get(rs.getString("setor")));
+					funcionario.setAdmissao(DateUtil.toLocalDate(rs.getString("admissao"), "yyyy-MM-dd"));
+					funcionario.setDemissao(DateUtil.toLocalDate(rs.getString("demissao"), "yyyy-MM-dd"));
 					funcionario.setUsuario(rs.getString("usuario"));
 					funcionario.setUsuario(rs.getString("senha"));
 				}
@@ -127,6 +130,8 @@ public class FuncionarioJDBC implements FuncionarioDAO {
 				funcionario.setCpf(rs.getString("cpf"));
 				funcionario.setTelefone(rs.getInt("telefone"));
 				funcionario.setSetor(Setor.get(rs.getString("setor")));
+				funcionario.setAdmissao(DateUtil.toLocalDate(rs.getString("admissao"), "yyyy-MM-dd"));
+				funcionario.setDemissao(DateUtil.toLocalDate(rs.getString("demissao"), "yyyy-MM-dd"));
 				funcionario.setUsuario(rs.getString("usuario"));
 				funcionario.setUsuario(rs.getString("senha"));
 				funcionarios.add(funcionario);

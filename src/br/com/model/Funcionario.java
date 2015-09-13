@@ -1,5 +1,7 @@
 package br.com.model;
 
+import java.time.LocalDate;
+
 public class Funcionario {
 	private Integer codigo;
 	private String nome;
@@ -8,7 +10,8 @@ public class Funcionario {
 	private Setor setor;
 	private String usuario;
 	private String senha;
-	private boolean status = true;
+	private LocalDate admissao;
+	private LocalDate demissao;
 	
 	//CONSTRUTOR VAZIO
 	public Funcionario() {
@@ -16,7 +19,7 @@ public class Funcionario {
 	}
 	//CONSTRUTOR CHEIO
 	public Funcionario(Integer codigo, String nome, String cpf,
-			Integer telefone, Setor setor, String usuario, String senha, boolean status) {
+			Integer telefone, Setor setor, String usuario, String senha, LocalDate admissao, LocalDate demissao) {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -24,7 +27,8 @@ public class Funcionario {
 		this.setor = setor;
 		this.usuario = usuario;
 		this.senha = senha;
-		this.status = status;
+		this.admissao = admissao;
+		this.demissao = demissao;
 	}
 	
 	//GETS E SETTERS
@@ -70,13 +74,17 @@ public class Funcionario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public boolean getStatus() {
-		return status;
+	public LocalDate getAdmissao() {
+		return admissao;
 	}
-	public void setStatus(boolean status) {
-		this.status = status;
+	public void setAdmissao(LocalDate admissao) {
+		this.admissao = admissao;
 	}
-	
-	
+	public LocalDate getDemissao() {
+		return demissao;
+	}
+	public void setDemissao(LocalDate demissao) {
+		this.demissao = demissao;
+	}
 	
 }
