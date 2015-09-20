@@ -1,4 +1,4 @@
-package br.com.model;
+package br.com.tipo;
 
 public enum Setor {
 	ADMINISTRADOR,

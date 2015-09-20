@@ -7,5 +7,6 @@ import br.com.model.Funcionario;
 public interface FuncionarioDAO extends JdbcCRUD<Funcionario> {
 	
 	//LIGAÇÃO ENTRE A CLASSE ESPECIFICOFUNCIONARIO PASSANDO O METODO FUNCÕES AO FUNCIONARIO
+	
 
 }
