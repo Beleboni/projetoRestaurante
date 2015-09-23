@@ -13,7 +13,6 @@ public class Funcionario {
 	private String usuario;
 	private String senha;
 	private LocalDate admissao;
-	private LocalDate demissao;
 	private Boolean status = true;
 	
 	//CONSTRUTOR VAZIO
@@ -22,7 +21,7 @@ public class Funcionario {
 	}
 	//CONSTRUTOR CHEIO
 	public Funcionario(Integer codigo, String nome, String cpf,
-			String telefone, Setor setor, String usuario, String senha, LocalDate admissao, LocalDate demissao, Boolean status) {
+			String telefone, Setor setor, String usuario, String senha, LocalDate admissao, Boolean status) {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -31,7 +30,6 @@ public class Funcionario {
 		this.usuario = usuario;
 		this.senha = senha;
 		this.admissao = admissao;
-		this.demissao = demissao;
 		this.status = status = true;
 	}
 	
@@ -83,12 +81,6 @@ public class Funcionario {
 	}
 	public void setAdmissao(LocalDate admissao) {
 		this.admissao = admissao;
-	}
-	public LocalDate getDemissao() {
-		return demissao;
-	}
-	public void setDemissao(LocalDate demissao) {
-		this.demissao = demissao;
 	}
 	public Boolean getStatus() {
 		return status;

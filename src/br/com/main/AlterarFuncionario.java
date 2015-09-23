@@ -4,12 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 import br.com.dao.FuncionarioDAO;
 import br.com.jdbc.FuncionarioJDBC;
 import br.com.model.Funcionario;
 import br.com.tipo.Setor;
-import br.com.util.DateUtil;
 
 public class AlterarFuncionario extends javax.swing.JInternalFrame {
 
@@ -29,15 +29,17 @@ public class AlterarFuncionario extends javax.swing.JInternalFrame {
 		jlbCpf = new javax.swing.JLabel();
 		jlbSetor = new javax.swing.JLabel();
 		jlbUsuario = new javax.swing.JLabel();
-		jlbDemissao = new javax.swing.JLabel();
+		jlbStatus = new javax.swing.JLabel();
+		jlbCpf = new javax.swing.JLabel();
+		jlbUsuario = new javax.swing.JLabel();
 		jtfNome = new javax.swing.JTextField();
 		jtfTelefone = new javax.swing.JTextField();
 		jtfCpf = new javax.swing.JTextField();
 		jtfUsuario = new javax.swing.JTextField();
 		jtfSenha = new javax.swing.JTextField();
-		jlbSenha1 = new javax.swing.JLabel();
-		jtfDemissao = new javax.swing.JTextField();
+		jlbSenha = new javax.swing.JLabel();
 		jcbSetor = new javax.swing.JComboBox<String>();
+		jcbStatus = new javax.swing.JComboBox<String>();
 
 		setClosable(true);
 		setIconifiable(true);
@@ -49,67 +51,82 @@ public class AlterarFuncionario extends javax.swing.JInternalFrame {
 		jlbNome.setText("NOME:");
 		getContentPane().add(jlbNome);
 		jlbNome.setBounds(20, 40, 70, 30);
-
+		
+		jlbCpf.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbCpf.setText("CPF:");
+		getContentPane().add(jlbCpf);
+		jlbCpf.setBounds(20, 80, 60, 30);
+		
+				
 		jlbTelefone.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
 		jlbTelefone.setText("TELEFONE:");
 		getContentPane().add(jlbTelefone);
 		jlbTelefone.setBounds(20, 120, 100, 30);
-
-//		jlbCpf.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
-//		jlbCpf.setText("CPF:");
-//		getContentPane().add(jlbCpf);
-//		jlbCpf.setBounds(20, 80, 60, 30);
 
 		jlbSetor.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
 		jlbSetor.setText("SETOR:");
 		getContentPane().add(jlbSetor);
 		jlbSetor.setBounds(20, 160, 80, 30);
 
-//		jlbUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
-//		jlbUsuario.setText("USUARIO:");
-//		getContentPane().add(jlbUsuario);
-//		jlbUsuario.setBounds(20, 200, 70, 30);
-
-//		jlbDemissao.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
-//		jlbDemissao.setText("FUNCIONARIO: ");
-//		getContentPane().add(jlbDemissao);
-//		jlbDemissao.setBounds(20, 290, 100, 30);
+		jlbUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbUsuario.setText("USUARIO:");
+		getContentPane().add(jlbUsuario);
+		jlbUsuario.setBounds(20, 200, 70, 30);
 		
-		jlbSenha1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
-		jlbSenha1.setText("SENHA:");
-		getContentPane().add(jlbSenha1);
-		jlbSenha1.setBounds(20, 240, 80, 30);
-
+		jlbSenha.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbSenha.setText("SENHA:");
+		getContentPane().add(jlbSenha);
+		jlbSenha.setBounds(20, 240, 80, 30);
 		
-		// TEXTFIELDS
-		getContentPane().add(jtfNome);
-		jtfNome.setBounds(70, 40, 250, 30);
-		getContentPane().add(jtfTelefone);
-		jtfTelefone.setBounds(90, 120, 120, 30);
-		getContentPane().add(jtfCpf);
-		jtfCpf.setBounds(70, 80, 110, 30);
-		getContentPane().add(jtfUsuario);
-		jtfUsuario.setBounds(80, 200, 132, 30);
-		getContentPane().add(jtfSenha);
-		jtfSenha.setBounds(80, 240, 130, 30);
-		getContentPane().add(jtfDemissao);
-		jtfDemissao.setBounds(120, 290, 150, 30);
+		jlbStatus.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbStatus.setText("STATUS:");
+		getContentPane().add(jlbStatus);
+		jlbStatus.setBounds(20, 280, 80, 30);
 
 		//JCOMBOBOX
 		jcbSetor = new JComboBox<String>();
 		getContentPane().add(jcbSetor);
-		jcbSetor.setBounds(80, 160, 150, 30);
+		jcbSetor.setBounds(80, 160, 140, 30);
 		jcbSetor.addItem("ADMINSTRADOR");
 		jcbSetor.addItem("CAIXA");
 		jcbSetor.addItem("COZINHEIRO");
 		jcbSetor.addItem("GARÇOM");
 		
+		jcbStatus = new JComboBox<String>();
+		getContentPane().add(jcbStatus);
+		jcbStatus.setBounds(90, 280, 150, 30);
+		jcbStatus.addItem("ATIVO");
+		jcbStatus.addItem("INATIVO");
+		
+		// TEXTFIELDS
+		getContentPane().add(jtfNome);
+		jtfNome.setBounds(70, 40, 120, 30);	
+		jtfNome.setEnabled(false);
+		
+		getContentPane().add(jtfCpf);
+		jtfCpf.setBounds(60, 80, 120, 30);
+		jtfCpf.setEnabled(false);
+		
+		getContentPane().add(jtfTelefone);
+		jtfTelefone.setBounds(90, 120, 120, 30);
+		
+		getContentPane().add(jtfUsuario);
+		jtfUsuario.setBounds(90, 200, 120, 30);	
+		jtfUsuario.setEnabled(false);
+		
+		getContentPane().add(jtfSenha);
+		jtfSenha.setBounds(80, 240, 200, 30);
+		
 		//CARREGANDO INFORMAÇÕES NOS TEXTFIELDS
-		jlbNome.setText(funcionario.getNome());
-		jtfCpf.setText(funcionario.getCpf());
 		jtfTelefone.setText(funcionario.getTelefone());
-		jlbUsuario.setText(funcionario.getUsuario());
+		jtfUsuario.setText(funcionario.getUsuario());
 		jtfSenha.setText(funcionario.getSenha());
+		jcbSetor.setSelectedIndex(funcionario.getSetor().ordinal());
+		jcbStatus.setSelectedItem(funcionario.getStatus().booleanValue());
+		jtfNome.setText(funcionario.getNome());
+		jtfCpf.setText(funcionario.getCpf());
+		jtfUsuario.setText(funcionario.getUsuario());
+
 		
 		//BOTOES
 		jbtAlterarCadastro.setIcon(new javax.swing.ImageIcon(getClass()
@@ -120,6 +137,7 @@ public class AlterarFuncionario extends javax.swing.JInternalFrame {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						
 						//AÇÃO DE ATUALIZAR OS DADOS
 						funcionario.setNome(jtfNome.getText());
 						funcionario.setCpf(jtfCpf.getText());
@@ -142,11 +160,17 @@ public class AlterarFuncionario extends javax.swing.JInternalFrame {
 						}
 						funcionario.setUsuario(jtfUsuario.getText());
 						funcionario.setSenha(jtfSenha.getText());
-						funcionario.setDemissao(DateUtil.toLocalDate(jtfDemissao.getText()));
-						
+						funcionario.setStatus(jcbStatus.getSelectedIndex()  == 0 ? true : false);	
+																		
 						//ALTERANDO O FUNCIONARIO
 						FuncionarioDAO funcionarioDAO = new FuncionarioJDBC();
 						funcionarioDAO.alterar(funcionario);
+						
+						JOptionPane.showMessageDialog(null, "Dados alterrados com sucesso !!!");
+						CadastroFuncionario At = new CadastroFuncionario();
+						Principal.jdpPrincipal.add(At);
+						At.setVisible(true);
+						dispose();
 						
 					}
 				});
@@ -160,14 +184,14 @@ public class AlterarFuncionario extends javax.swing.JInternalFrame {
 	// DECLARANDO AS VARIAVEIS
 	private javax.swing.JLabel jlbSetor;
 	private javax.swing.JButton jbtAlterarCadastro;
-	private javax.swing.JTextField jtfDemissao;
 	private javax.swing.JComboBox<String> jcbSetor;
+	private javax.swing.JComboBox<String> jcbStatus;
 	private javax.swing.JLabel jlbCpf;
-	private javax.swing.JLabel jlbDemissao;
 	private javax.swing.JLabel jlbNome;
-	private javax.swing.JLabel jlbSenha1;
+	private javax.swing.JLabel jlbSenha;
 	private javax.swing.JLabel jlbTelefone;
 	private javax.swing.JLabel jlbUsuario;
+	private javax.swing.JLabel jlbStatus;
 	private javax.swing.JTextField jtfSenha;
 	private javax.swing.JTextField jtfCpf;
 	private javax.swing.JTextField jtfNome;

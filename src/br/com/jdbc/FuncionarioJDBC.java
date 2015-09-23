@@ -58,7 +58,7 @@ public class FuncionarioJDBC implements FuncionarioDAO {
 			pstmt.setString(4, funcionario.getSetor().toString());
 			pstmt.setString(5, funcionario.getUsuario());
 			pstmt.setString(6, funcionario.getSenha());
-			pstmt.setString(7, funcionario.getStatus().toString());
+			pstmt.setBoolean(7, funcionario.getStatus());
 			pstmt.setInt(8, funcionario.getCodigo());
 			pstmt.executeUpdate();
 			
@@ -104,7 +104,7 @@ public class FuncionarioJDBC implements FuncionarioDAO {
 					funcionario.setSetor(Setor.get(rs.getString("setor")));
 					funcionario.setAdmissao(DateUtil.toLocalDate(rs.getString("admissao"), "yyyy-MM-dd"));
 					funcionario.setUsuario(rs.getString("usuario"));
-					funcionario.setUsuario(rs.getString("senha"));
+					funcionario.setSenha(rs.getString("senha"));
 					funcionario.setStatus(rs.getBoolean("status"));
 				}
 				

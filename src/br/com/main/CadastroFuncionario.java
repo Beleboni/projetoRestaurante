@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import br.com.dao.FuncionarioDAO;
 import br.com.jdbc.FuncionarioJDBC;
 import br.com.model.Funcionario;
@@ -103,12 +102,14 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 		getContentPane().add(jtfTelefone);
 		jtfTelefone.setBounds(90, 120, 160, 30);
 		getContentPane().add(jtfCpf);
+	
 		jtfCpf.setBounds(70, 80, 140, 30);
 		getContentPane().add(jtfUsuario);
 		jtfUsuario.setBounds(80, 200, 200, 30);
 		getContentPane().add(jpfSenha);
 		jpfSenha.setBounds(80, 240, 200, 30);
 
+		
 		// JCOMBOBOX
 		jcbSetor = new JComboBox<String>();
 		getContentPane().add(jcbSetor);
@@ -191,6 +192,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 					jtfCpf.setText("");
 					jtfTelefone.setText("");
 					jpfSenha.setText("");
+					jtfUsuario.setText("");
 					jcbSetor.setSelectedItem("");
 					
 					//LIMPANDO A TABELA
@@ -220,16 +222,19 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// AÇÃO DO BOTAO ALTERAR
-				
-				//PEGANDO A SELEÇÃO DO LINHA NA TABELA
-				int linha = jtTabela.getSelectedRow();
-				//PEGANDO O CODIGO NA LINHA SELECIONADA
-				Integer codigo = Integer.valueOf((String) dtmLista.getValueAt(linha, 0));
-				//ABRE A TELA ALTERARCADASTRO E TESTANDO SE O CODIGO PASSADO EXISTE NO BANCO
-				AlterarFuncionario At = new AlterarFuncionario(funcionarioDAO.buscar(codigo));
-				Principal.jdpPrincipal.add(At);
-				At.setVisible(true);
-				dispose();
+				if(jtTabela.getSelectedRowCount() == 0){
+					JOptionPane.showMessageDialog(jtTabela, "Por favor, selecione o usuario para alterar !!!");
+				}else{
+					//PEGANDO A SELEÇÃO DO LINHA NA TABELA
+					int linha = jtTabela.getSelectedRow();
+					//PEGANDO O CODIGO NA LINHA SELECIONADA
+					Integer codigo = Integer.valueOf((String) dtmLista.getValueAt(linha, 0));
+					//ABRE A TELA ALTERARCADASTRO E TESTANDO SE O CODIGO PASSADO EXISTE NO BANCO
+					AlterarFuncionario At = new AlterarFuncionario(funcionarioDAO.buscar(codigo));
+					Principal.jdpPrincipal.add(At);
+					At.setVisible(true);
+					dispose();
+				}
 			}
 		});
 		getContentPane().add(jbtAlterar);
