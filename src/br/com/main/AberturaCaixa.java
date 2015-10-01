@@ -5,7 +5,7 @@
  */
 package br.com.main;
 
-import static br.com.main.Principal.jdpPrincipal;
+import static br.com.main.Controle.jdpPrincipal;
 
 /**
  *

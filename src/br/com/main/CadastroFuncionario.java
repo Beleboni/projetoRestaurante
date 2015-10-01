@@ -10,7 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 import br.com.dao.FuncionarioDAO;
+import br.com.estilo.Mascara;
 import br.com.jdbc.FuncionarioJDBC;
 import br.com.model.Funcionario;
 import br.com.tipo.Setor;
@@ -39,8 +41,8 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 		jlbUsuario = new javax.swing.JLabel();
 		jlbSenha = new javax.swing.JLabel();
 		jtfNome = new javax.swing.JTextField();
-		jtfTelefone = new javax.swing.JTextField();
-		jtfCpf = new javax.swing.JTextField();
+		jtfTelefone = new javax.swing.JFormattedTextField(Mascara.getTelefoneMask());
+		jtfCpf = new javax.swing.JFormattedTextField(Mascara.getCpfMask());
 		jbCadastro = new javax.swing.JButton();
 		jbtAlterar = new javax.swing.JButton();
 		jlbTitulo1 = new javax.swing.JLabel();
@@ -231,7 +233,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 					Integer codigo = Integer.valueOf((String) dtmLista.getValueAt(linha, 0));
 					//ABRE A TELA ALTERARCADASTRO E TESTANDO SE O CODIGO PASSADO EXISTE NO BANCO
 					AlterarFuncionario At = new AlterarFuncionario(funcionarioDAO.buscar(codigo));
-					Principal.jdpPrincipal.add(At);
+					Controle.jdpPrincipal.add(At);
 					At.setVisible(true);
 					dispose();
 				}
@@ -257,9 +259,9 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 	private javax.swing.JLabel jlbTitulo2;
 	private javax.swing.JLabel jlbUsuario;
 	private javax.swing.JPasswordField jpfSenha;
-	private javax.swing.JTextField jtfCpf;
+	private javax.swing.JFormattedTextField jtfCpf;
 	private javax.swing.JTextField jtfNome;
-	private javax.swing.JTextField jtfTelefone;
+	private javax.swing.JFormattedTextField jtfTelefone;
 	private javax.swing.JTextField jtfUsuario;
 
 }

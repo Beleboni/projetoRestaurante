@@ -168,7 +168,7 @@ public class AlterarFuncionario extends javax.swing.JInternalFrame {
 						
 						JOptionPane.showMessageDialog(null, "Dados alterrados com sucesso !!!");
 						CadastroFuncionario At = new CadastroFuncionario();
-						Principal.jdpPrincipal.add(At);
+						Controle.jdpPrincipal.add(At);
 						At.setVisible(true);
 						dispose();
 						
