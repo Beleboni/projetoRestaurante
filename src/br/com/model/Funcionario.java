@@ -30,7 +30,7 @@ public class Funcionario {
 		this.usuario = usuario;
 		this.senha = senha;
 		this.admissao = admissao;
-		this.status = status = true;
+		this.status = status;
 	}
 	
 	//GETS E SETTERS

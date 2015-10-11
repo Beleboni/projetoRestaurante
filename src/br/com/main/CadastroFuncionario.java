@@ -137,6 +137,11 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 						}));
 
 		jtTabela = new JTable(dtmLista);
+		jtTabela.getColumnModel().getColumn(0).setMaxWidth(50);
+		jtTabela.getColumnModel().getColumn(1).setMaxWidth(300);
+		jtTabela.getColumnModel().getColumn(2).setMaxWidth(150);
+		jtTabela.getColumnModel().getColumn(3).setMaxWidth(150);
+		jtTabela.getColumnModel().getColumn(4).setMaxWidth(60);
 		jspRolagem = new JScrollPane(jtTabela);
 		jspRolagem.setBounds(400, 40, 710, 280);
 		jspRolagem.setBackground(Color.white);
@@ -233,7 +238,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 					Integer codigo = Integer.valueOf((String) dtmLista.getValueAt(linha, 0));
 					//ABRE A TELA ALTERARCADASTRO E TESTANDO SE O CODIGO PASSADO EXISTE NO BANCO
 					AlterarFuncionario At = new AlterarFuncionario(funcionarioDAO.buscar(codigo));
-					Controle.jdpPrincipal.add(At);
+					Principal.jdpPrincipal.add(At);
 					At.setVisible(true);
 					dispose();
 				}

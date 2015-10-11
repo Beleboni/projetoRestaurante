@@ -65,7 +65,7 @@ public class PedidoCozinha extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jbtMandarPedido);
-        jbtMandarPedido.setBounds(350, 350, 160, 29);
+        jbtMandarPedido.setBounds(350, 350, 160, 23);
 
         jcbPedidoCozinha.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         getContentPane().add(jcbPedidoCozinha);
