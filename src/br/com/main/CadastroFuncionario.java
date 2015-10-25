@@ -58,42 +58,42 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 		getContentPane().setLayout(null);
 
 		// LABELS
-		jlbNome.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbNome.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbNome.setText("NOME:");
 		getContentPane().add(jlbNome);
 		jlbNome.setBounds(20, 40, 70, 30);
 
-		jlbTelefone.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbTelefone.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbTelefone.setText("TELEFONE:");
 		getContentPane().add(jlbTelefone);
 		jlbTelefone.setBounds(20, 120, 100, 30);
 
-		jlbCpf.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbCpf.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbCpf.setText("CPF:");
 		getContentPane().add(jlbCpf);
 		jlbCpf.setBounds(20, 80, 60, 30);
 
-		jlbUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbUsuario.setText("USUARIO:");
 		getContentPane().add(jlbUsuario);
 		jlbUsuario.setBounds(20, 200, 70, 30);
 
-		jlbSenha.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbSenha.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbSenha.setText("SENHA:");
 		getContentPane().add(jlbSenha);
 		jlbSenha.setBounds(20, 240, 80, 30);
 
-		jlbTitulo1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbTitulo1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbTitulo1.setText("CADASTRAR  NOVO FUNCIONARIO:");
 		getContentPane().add(jlbTitulo1);
 		jlbTitulo1.setBounds(20, 10, 280, 15);
 
-		jlbTitulo2.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbTitulo2.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbTitulo2.setText("TODOS OS FUNCIONARIOS CADASTRADOS: ");
 		getContentPane().add(jlbTitulo2);
 		jlbTitulo2.setBounds(400, 10, 350, 20);
 
-		jlbSetor1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbSetor1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbSetor1.setText("SETOR:");
 		getContentPane().add(jlbSetor1);
 		jlbSetor1.setBounds(20, 160, 80, 30);
@@ -222,7 +222,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 		jbCadastro.setBounds(10, 340, 130, 30);
 
 		jbtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-				"/img/2.png"))); // NOI18N
+				"/img/2.png"))); 
 		jbtAlterar.setText("ALTERAR");
 		jbtAlterar.addActionListener(new ActionListener() {
 

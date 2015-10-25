@@ -9,7 +9,7 @@ public class Conexao {
 	public static Connection connection;
 	
 	static{
-		String endereco = "jdbc:mysql://localhost:3306/sistema_restaurante_v1";
+		String endereco = "jdbc:mysql://localhost:3306/restaurante_v1";
 		String usuario = "root";
 		String senha = "";
 	
