@@ -29,7 +29,14 @@ public class Cardapio extends javax.swing.JInternalFrame {
 	
 	public Cardapio(ArrayList<Produto> produtos) {
 		//INICIA A LISTA DE PRODUTOS QUE SERÃO SELECIONADOS PELO USUARIO
-		this.produtos = new ArrayList<>();
+		this.produtos = produtos;
+		//TESTA SE A A LISTA DE PRODUTOS ESTÁ NULA
+		//ESTÁ FUNÇÃO SERVE PARA MANTER A LISTA DO PEDIDO DO CLIENTE ALIMENTADA
+		//ATÊNÇÃO A TELA PEDIDOCLIENTE SO É CONSULTADA QUANDO UM ITEM FOR ADICIONADO NA TELA
+		if(produtos == null){
+			this.produtos = new ArrayList<>();
+		}
+		
         initComponents();
     }
 
@@ -148,9 +155,6 @@ public class Cardapio extends javax.swing.JInternalFrame {
         			Integer codigo = Integer.valueOf((String) dtmPorcao.getValueAt(linha, 0));   
         			//ADICIONA OS ITENS SELECIONADO A UMA LISTA
         			produtos.add(produtoDao.buscar(codigo));
-        			//ATENÇÃO TESTE
-        			System.out.println(produtos);
-        			//ATENÇÃO TESTE
         			// AÇÕES DO BOTÃO ADICIONAR
         			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
         		}
@@ -166,7 +170,7 @@ public class Cardapio extends javax.swing.JInternalFrame {
         		@Override
         		public void actionPerformed(ActionEvent e) {
         			//MENSAGEM DE SUCESSO
-        			JOptionPane.showMessageDialog(jbtFinalizarPedido, "PedidoDAO Montado com sucessso !!!");
+        			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
         			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
         			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
         			PedidoCliente At = new PedidoCliente(produtos);
@@ -214,8 +218,6 @@ public class Cardapio extends javax.swing.JInternalFrame {
         			Integer codigo = Integer.valueOf((String) dtmSobremesa.getValueAt(linha, 0));
         			//ADICIONA OS ITENS SELECIONADO A UMA LISTA
         			produtos.add(produtoDao.buscar(codigo));
-        			// AÇÕES DO BOTÃO ADICIONAR
-        			System.out.println(produtos);
         			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
         		}
         });
@@ -229,7 +231,7 @@ public class Cardapio extends javax.swing.JInternalFrame {
         		@Override
         		public void actionPerformed(ActionEvent e) {
         			//MENSAGEM DE SUCESSO
-        			JOptionPane.showMessageDialog(jbtFinalizarPedido, "PedidoDAO Montado com sucessso !!!");
+        			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
         			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
         			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
         			PedidoCliente At = new PedidoCliente(produtos);
@@ -277,8 +279,6 @@ public class Cardapio extends javax.swing.JInternalFrame {
        			Integer codigo = Integer.valueOf((String) dtmSorvete.getValueAt(linha, 0));
        			//ADICIONANDO O PRODUTO A LISTA
        			produtos.add(produtoDao.buscar(codigo));
-       			// AÇÕES DO BOTÃO ADICIONAR
-       			System.out.println(produtos);
        			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
        		}
        });
@@ -293,7 +293,7 @@ public class Cardapio extends javax.swing.JInternalFrame {
        		@Override
        		public void actionPerformed(ActionEvent e) {
        		//MENSAGEM DE SUCESSO
-    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "PedidoDAO Montado com sucessso !!!");
+    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
     			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
     			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
     			PedidoCliente At = new PedidoCliente(produtos);
@@ -343,8 +343,6 @@ public class Cardapio extends javax.swing.JInternalFrame {
        			Integer codigo = Integer.valueOf((String) dtmLanches.getValueAt(linha, 0));
        			//ADICIONANDO O PRODUTO A LISTA
        			produtos.add(produtoDao.buscar(codigo));
-       			// AÇÕES DO BOTÃO ADICIONAR
-       			System.out.println(produtos);
        			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
        		}
        });
@@ -359,7 +357,7 @@ public class Cardapio extends javax.swing.JInternalFrame {
        		@Override
        		public void actionPerformed(ActionEvent e) {
        		//MENSAGEM DE SUCESSO
-    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "PedidoDAO Montado com sucessso !!!");
+    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
     			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
     			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
     			PedidoCliente At = new PedidoCliente(produtos);
@@ -408,8 +406,6 @@ public class Cardapio extends javax.swing.JInternalFrame {
        			Integer codigo = Integer.valueOf((String) dtmAlmocoBifeLivre.getValueAt(linha, 0));
        			//ADICIONANDO O PRODUTO A LISTA
        			produtos.add(produtoDao.buscar(codigo));
-       			// AÇÕES DO BOTÃO ADICIONAR
-       			System.out.println(produtos);
        			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
        		}
        });
@@ -424,7 +420,7 @@ public class Cardapio extends javax.swing.JInternalFrame {
        		@Override
        		public void actionPerformed(ActionEvent e) {
        			//MENSAGEM DE SUCESSO
-    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "PedidoDAO Montado com sucessso !!!");
+    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
     			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
     			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
     			PedidoCliente At = new PedidoCliente(produtos);
@@ -474,7 +470,6 @@ public class Cardapio extends javax.swing.JInternalFrame {
        			//ADICIONANDO O PRODUTO A LISTA
        			produtos.add(produtoDao.buscar(codigo));
        			// AÇÕES DO BOTÃO ADICIONAR
-       			System.out.println(produtos);
        			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
        		}
        });
@@ -489,7 +484,7 @@ public class Cardapio extends javax.swing.JInternalFrame {
        		@Override
        		public void actionPerformed(ActionEvent e) {
        			//MENSAGEM DE SUCESSO
-    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "PedidoDAO Montado com sucessso !!!");
+    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
     			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
     			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
     			PedidoCliente At = new PedidoCliente(produtos);
@@ -539,7 +534,6 @@ public class Cardapio extends javax.swing.JInternalFrame {
        			//ADICIONANDO O PRODUTO A LISTA
        			produtos.add(produtoDao.buscar(codigo));
        			// AÇÕES DO BOTÃO ADICIONAR
-       			System.out.println(produtos);
        			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
        		}
        });
@@ -554,7 +548,7 @@ public class Cardapio extends javax.swing.JInternalFrame {
        		@Override
        		public void actionPerformed(ActionEvent e) {
        			//MENSAGEM DE SUCESSO
-    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "PedidoDAO Montado com sucessso !!!");
+    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
     			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
     			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
     			PedidoCliente At = new PedidoCliente(produtos);
@@ -606,7 +600,6 @@ public class Cardapio extends javax.swing.JInternalFrame {
        			//ADICIONANDO O PRODUTO A LISTA
        			produtos.add(produtoDao.buscar(codigo));
        			// AÇÕES DO BOTÃO ADICIONAR
-       			System.out.println(produtos);
        			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
        		}
        });
@@ -621,7 +614,7 @@ public class Cardapio extends javax.swing.JInternalFrame {
        		@Override
        		public void actionPerformed(ActionEvent e) {
        			//MENSAGEM DE SUCESSO
-    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "PedidoDAO Montado com sucessso !!!");
+    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
     			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
     			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
     			PedidoCliente At = new PedidoCliente(produtos);

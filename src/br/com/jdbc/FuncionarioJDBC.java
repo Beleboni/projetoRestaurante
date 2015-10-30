@@ -1,6 +1,7 @@
 package br.com.jdbc;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,7 +38,7 @@ public class FuncionarioJDBC implements FuncionarioDAO {
 			pstmt.setString(4, funcionario.getSetor().toString());
 			pstmt.setString(5, funcionario.getUsuario());
 			pstmt.setString(6, funcionario.getSenha());
-			pstmt.setString(7, funcionario.getAdmissao().toString());
+			pstmt.setDate(7, Date.valueOf(funcionario.getAdmissao().toString()));
 			pstmt.setBoolean(8, funcionario.getStatus());
 			pstmt.executeUpdate();
 			

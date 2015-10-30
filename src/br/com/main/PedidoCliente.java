@@ -8,6 +8,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import br.com.dao.ItemPedidoDAO;
+import br.com.dao.PedidoDAO;
+import br.com.jdbc.ItemPedidoJDBC;
+import br.com.jdbc.PedidoJDBC;
+import br.com.model.ItemPedido;
+import br.com.model.Pedido;
 import br.com.model.Produto;
 
 public class PedidoCliente extends javax.swing.JInternalFrame {
@@ -15,6 +21,10 @@ public class PedidoCliente extends javax.swing.JInternalFrame {
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel dtmLista;
 	private ArrayList<Produto> produtos;
+	private PedidoDAO pedidoDAO = new PedidoJDBC();
+	private ItemPedidoDAO itemPedidoDAO = new ItemPedidoJDBC();
+	private Pedido pedido = new Pedido();
+	private ItemPedido item = new ItemPedido();
 	
 	public PedidoCliente(ArrayList<Produto> produtos) {
 		//TESTANDO SE A LISTA ESTÁ FAZIA
@@ -66,7 +76,6 @@ public class PedidoCliente extends javax.swing.JInternalFrame {
         jtfTotal.setBounds(647, 308, 100, 30);
         getContentPane().add(jtfMesa);
         jtfMesa.setBounds(697, 22, 50, 30);
-
         
         //TABELA
         dtmLista = new DefaultTableModel();
@@ -93,11 +102,11 @@ public class PedidoCliente extends javax.swing.JInternalFrame {
         jbtVisualizarCardapio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//RETORNANDO A TELA DE CARPIO PARA SELECIONAR MAIS ITENS
+				dispose();
 				Cardapio At = new Cardapio(produtos);
 				Principal.jdpPrincipal.add(At);
 				At.setVisible(true);
-				dispose();
-				
 			}
 		});
         getContentPane().add(jbtVisualizarCardapio);
@@ -108,6 +117,34 @@ public class PedidoCliente extends javax.swing.JInternalFrame {
         jbtGerarPedido.addActionListener(new ActionListener() {		
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(jtfMesa.getText().equals("")){
+					JOptionPane.showMessageDialog(jbtGerarPedido, "Por Favor, Cadastre uma mesa para este Pedido");
+				}else{
+//					public static void main(String[] args) {
+//						Pedido p = new Pedido();
+//						
+//						//p.salvar(p);
+//						
+//						ItemPedido i = new ItemPedido();
+//						i.setPedido(p);
+//						i.setProduto(new Produto());
+//						
+//						p.getItens().add(i);
+//						
+//						for (ItemPedido it : p.getItens()){ 
+//							//itemdao.salvar(it);
+//						}
+					
+					pedido.setMesa(jtfMesa.getText());
+					pedido.setStatus(true);
+					item.setPedido(pedido);
+					//item.setProduto(produtos);
+					
+					
+					pedidoDAO.inserir(pedido);
+					itemPedidoDAO.inserir(item);
+				}
+				
 				JOptionPane.showMessageDialog(jbtGerarPedido, "AINDA EM DESENVOLVIMENTO");
 				
 			}
