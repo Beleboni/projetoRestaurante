@@ -1,6 +1,4 @@
 package br.com.main;
-
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -144,7 +142,6 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 		jtTabela.getColumnModel().getColumn(4).setMaxWidth(60);
 		jspRolagem = new JScrollPane(jtTabela);
 		jspRolagem.setBounds(400, 40, 710, 280);
-		jspRolagem.setBackground(Color.white);
 		getContentPane().add(jspRolagem);
 
 		// CADASTRAR NOVO FUNCIONARIO
@@ -213,7 +210,6 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 									f.getSetor().toString(),
 									f.getTelefone().toString(),
 									f.getStatus().toString() }));
-
 				}
 
 			}

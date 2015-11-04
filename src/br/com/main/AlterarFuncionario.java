@@ -47,38 +47,38 @@ public class AlterarFuncionario extends javax.swing.JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		//LABELS
-		jlbNome.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbNome.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbNome.setText("NOME:");
 		getContentPane().add(jlbNome);
 		jlbNome.setBounds(20, 40, 70, 30);
 		
-		jlbCpf.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbCpf.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbCpf.setText("CPF:");
 		getContentPane().add(jlbCpf);
 		jlbCpf.setBounds(20, 80, 60, 30);
 		
 				
-		jlbTelefone.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbTelefone.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbTelefone.setText("TELEFONE:");
 		getContentPane().add(jlbTelefone);
 		jlbTelefone.setBounds(20, 120, 100, 30);
 
-		jlbSetor.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbSetor.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbSetor.setText("SETOR:");
 		getContentPane().add(jlbSetor);
 		jlbSetor.setBounds(20, 160, 80, 30);
 
-		jlbUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbUsuario.setText("USUARIO:");
 		getContentPane().add(jlbUsuario);
 		jlbUsuario.setBounds(20, 200, 70, 30);
 		
-		jlbSenha.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbSenha.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbSenha.setText("SENHA:");
 		getContentPane().add(jlbSenha);
 		jlbSenha.setBounds(20, 240, 80, 30);
 		
-		jlbStatus.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbStatus.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbStatus.setText("STATUS:");
 		getContentPane().add(jlbStatus);
 		jlbStatus.setBounds(20, 280, 80, 30);
@@ -130,7 +130,7 @@ public class AlterarFuncionario extends javax.swing.JInternalFrame {
 		
 		//BOTOES
 		jbtAlterarCadastro.setIcon(new javax.swing.ImageIcon(getClass()
-				.getResource("/img/2.png"))); // NOI18N
+				.getResource("/img/2.png"))); 
 		jbtAlterarCadastro.setText("ALTERAR CADASTRO");
 		jbtAlterarCadastro
 				.addActionListener(new ActionListener() {

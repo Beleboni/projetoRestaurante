@@ -55,5 +55,14 @@ public class Pedido {
 	public void setDataPedido(LocalDate dataPedido) {
 		this.dataPedido = dataPedido;
 	}
+	
+	public boolean isProcesando(){
+		return status;
+	}
+	
+	public boolean isPronto(){
+		return status;
+	}
+
 
 }

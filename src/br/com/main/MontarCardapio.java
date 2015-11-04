@@ -57,12 +57,12 @@ public class MontarCardapio extends javax.swing.JInternalFrame {
         setTitle("Montar Cardápio");
         getContentPane().setLayout(null);
 
-        jlbItens.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        jlbItens.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
         jlbItens.setText("ITENS ADICIONADOS AO CARDAPIO:");
         getContentPane().add(jlbItens);
         jlbItens.setBounds(20, 280, 210, 30);
 
-        jlbValor.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        jlbValor.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
         jlbValor.setText("VALOR:");
         getContentPane().add(jlbValor);
         jlbValor.setBounds(430, 10, 80, 30);
@@ -123,7 +123,7 @@ public class MontarCardapio extends javax.swing.JInternalFrame {
 		jtsRolagem.setBounds(20, 101, 590, 99);
 		getContentPane().add(jtsRolagem);
 				
-		jbtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/3.png"))); // NOI18N
+		jbtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/3.png"))); 
         jbtCancelar.setText("CANCELAR");
         getContentPane().add(jbtCancelar);
         jbtCancelar.addActionListener(new ActionListener() {
@@ -136,7 +136,7 @@ public class MontarCardapio extends javax.swing.JInternalFrame {
 		});
         jbtCancelar.setBounds(180, 230, 130, 30);
 
-        jbtCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/2.png"))); // NOI18N
+        jbtCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/2.png"))); 
         jbtCadastrar.setText("CADASTRAR");
         jbtCadastrar.addActionListener(new ActionListener() {
 			

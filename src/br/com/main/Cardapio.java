@@ -149,14 +149,19 @@ public class Cardapio extends javax.swing.JInternalFrame {
          jbtAdicionar.addActionListener(new ActionListener() {	
         		@Override
         		public void actionPerformed(ActionEvent e) {
-        			//AÇÕES DO BOTÃO ADICIONAR
-        			int linha = jtPorcao.getSelectedRow();
-        			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
-        			Integer codigo = Integer.valueOf((String) dtmPorcao.getValueAt(linha, 0));   
-        			//ADICIONA OS ITENS SELECIONADO A UMA LISTA
-        			produtos.add(produtoDao.buscar(codigo));
-        			// AÇÕES DO BOTÃO ADICIONAR
-        			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+        			//TESTANDO A O USUARIO SELECIONOU UMA LINHA DA TABELA
+            		if(jtPorcao.getSelectedRowCount()==0){
+            			JOptionPane.showMessageDialog(jtPorcao, "Por favor, Selecione um item para adicionar ao seu pedido !!!");
+            		}else{
+		        			//AÇÕES DO BOTÃO ADICIONAR
+		        			int linha = jtPorcao.getSelectedRow();
+		        			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
+		        			Integer codigo = Integer.valueOf((String) dtmPorcao.getValueAt(linha, 0));   
+		        			//ADICIONA OS ITENS SELECIONADO A UMA LISTA
+		        			produtos.add(produtoDao.buscar(codigo));
+		        			// AÇÕES DO BOTÃO ADICIONAR
+		        			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+		        		}
         		}
         });
          //ADICIONANDO O BOTAO ADICIONAR NO PAINEL
@@ -169,14 +174,20 @@ public class Cardapio extends javax.swing.JInternalFrame {
          jbtFinalizarPedido.addActionListener(new ActionListener() {	
         		@Override
         		public void actionPerformed(ActionEvent e) {
-        			//MENSAGEM DE SUCESSO
-        			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
-        			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
-        			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
-        			PedidoCliente At = new PedidoCliente(produtos);
-					Principal.jdpPrincipal.add(At);
-					At.setVisible(true);
-					dispose();
+        			//TESTANDO SE O PEDIDO ESTA FAZIO
+        			if(produtos.isEmpty()){
+        				JOptionPane.showMessageDialog(jbtFinalizarPedido, "Atênção você não pode gerar um pedido sem itens, por favor selecione algum item para realizar um pedido !!!");
+        			}
+        			else{
+		        			//MENSAGEM DE SUCESSO
+		        			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
+		        			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
+		        			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
+		        			PedidoCliente At = new PedidoCliente(produtos);
+							Principal.jdpPrincipal.add(At);
+							At.setVisible(true);
+							dispose();
+        			}
         		}
          });
          jpPorcoes.add(jbtFinalizarPedido);
@@ -212,13 +223,18 @@ public class Cardapio extends javax.swing.JInternalFrame {
          jbtAdicionar.addActionListener(new ActionListener() {	
         		@Override
         		public void actionPerformed(ActionEvent e) {
-        			//AÇÕES DO BOTÃO ADICIONAR
-        			int linha = jtSobremesa.getSelectedRow();
-        			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
-        			Integer codigo = Integer.valueOf((String) dtmSobremesa.getValueAt(linha, 0));
-        			//ADICIONA OS ITENS SELECIONADO A UMA LISTA
-        			produtos.add(produtoDao.buscar(codigo));
-        			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+        			//TESTANDO A O USUARIO SELECIONOU UMA LINHA DA TABELA
+        			if(jtSobremesa.getSelectedRowCount() == 0){
+        				JOptionPane.showMessageDialog(jtSobremesa, "Por favor, Selecione um item para adicionar ao seu pedido !!!");
+        			}else{
+	        			//AÇÕES DO BOTÃO ADICIONAR
+	        			int linha = jtSobremesa.getSelectedRow();
+	        			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
+	        			Integer codigo = Integer.valueOf((String) dtmSobremesa.getValueAt(linha, 0));
+	        			//ADICIONA OS ITENS SELECIONADO A UMA LISTA
+	        			produtos.add(produtoDao.buscar(codigo));
+	        			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+	        		}
         		}
         });
         jpSobremesa.add(jbtAdicionar);
@@ -230,6 +246,11 @@ public class Cardapio extends javax.swing.JInternalFrame {
          jbtFinalizarPedido.addActionListener(new ActionListener() {	
         		@Override
         		public void actionPerformed(ActionEvent e) {
+        			//TESTANDO SE O PEDIDO ESTA FAZIO
+        			if(produtos.isEmpty()){
+        				JOptionPane.showMessageDialog(jbtFinalizarPedido, "Atênção você não pode gerar um pedido sem itens, por favor selecione algum item para realizar um pedido !!!");
+        			}
+        			else{
         			//MENSAGEM DE SUCESSO
         			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
         			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
@@ -238,6 +259,7 @@ public class Cardapio extends javax.swing.JInternalFrame {
 					Principal.jdpPrincipal.add(At);
 					At.setVisible(true);
 					dispose();
+        			}
         		}
          });
          jpSobremesa.add(jbtFinalizarPedido);
@@ -273,13 +295,18 @@ public class Cardapio extends javax.swing.JInternalFrame {
         jbtAdicionar.addActionListener(new ActionListener() {	
        		@Override
        		public void actionPerformed(ActionEvent e) {
-       			//AÇÕES DO BOTÃO ADICIONAR
-       			int linha = jtSorvete.getSelectedRow();
-       			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
-       			Integer codigo = Integer.valueOf((String) dtmSorvete.getValueAt(linha, 0));
-       			//ADICIONANDO O PRODUTO A LISTA
-       			produtos.add(produtoDao.buscar(codigo));
-       			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+       		//TESTANDO A O USUARIO SELECIONOU UMA LINHA DA TABELA
+    			if(jtSorvete.getSelectedRowCount() == 0){
+    				JOptionPane.showMessageDialog(jtSorvete, "Por favor, Selecione um item para adicionar ao seu pedido !!!");
+    			}else{
+		       			//AÇÕES DO BOTÃO ADICIONAR
+		       			int linha = jtSorvete.getSelectedRow();
+		       			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
+		       			Integer codigo = Integer.valueOf((String) dtmSorvete.getValueAt(linha, 0));
+		       			//ADICIONANDO O PRODUTO A LISTA
+		       			produtos.add(produtoDao.buscar(codigo));
+		       			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+    			}
        		}
        });
       //ADICIONANDO O BOTAO ADICIONAR NO PAINEL
@@ -292,14 +319,20 @@ public class Cardapio extends javax.swing.JInternalFrame {
         jbtFinalizarPedido.addActionListener(new ActionListener() {	
        		@Override
        		public void actionPerformed(ActionEvent e) {
-       		//MENSAGEM DE SUCESSO
-    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
-    			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
-    			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
-    			PedidoCliente At = new PedidoCliente(produtos);
-				Principal.jdpPrincipal.add(At);
-				At.setVisible(true);
-				dispose();
+       		//TESTANDO SE O PEDIDO ESTA FAZIO
+    			if(produtos.isEmpty()){
+    				JOptionPane.showMessageDialog(jbtFinalizarPedido, "Atênção você não pode gerar um pedido sem itens, por favor selecione algum item para realizar um pedido !!!");
+    			}
+    			else{
+		    			//MENSAGEM DE SUCESSO
+		    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
+		    			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
+		    			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
+		    			PedidoCliente At = new PedidoCliente(produtos);
+						Principal.jdpPrincipal.add(At);
+						At.setVisible(true);
+						dispose();
+    			}
        		}
         });
         jpSorvete.add(jbtFinalizarPedido);
@@ -337,13 +370,18 @@ public class Cardapio extends javax.swing.JInternalFrame {
         jbtAdicionar.addActionListener(new ActionListener() {	
        		@Override
        		public void actionPerformed(ActionEvent e) {
-       			//AÇÕES DO BOTÃO ADICIONAR
-       			int linha = jtLanche.getSelectedRow();
-       			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
-       			Integer codigo = Integer.valueOf((String) dtmLanches.getValueAt(linha, 0));
-       			//ADICIONANDO O PRODUTO A LISTA
-       			produtos.add(produtoDao.buscar(codigo));
-       			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+       		//TESTANDO A O USUARIO SELECIONOU UMA LINHA DA TABELA
+    			if(jtLanche.getSelectedRowCount() == 0){
+    				JOptionPane.showMessageDialog(jtLanche, "Por favor, Selecione um item para adicionar ao seu pedido !!!");
+    			}else{
+		       			//AÇÕES DO BOTÃO ADICIONAR
+		       			int linha = jtLanche.getSelectedRow();
+		       			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
+		       			Integer codigo = Integer.valueOf((String) dtmLanches.getValueAt(linha, 0));
+		       			//ADICIONANDO O PRODUTO A LISTA
+		       			produtos.add(produtoDao.buscar(codigo));
+		       			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+    			}
        		}
        });
       //ADICIONANDO O BOTAO ADICIONAR NO PAINEL
@@ -356,14 +394,20 @@ public class Cardapio extends javax.swing.JInternalFrame {
         jbtFinalizarPedido.addActionListener(new ActionListener() {	
        		@Override
        		public void actionPerformed(ActionEvent e) {
-       		//MENSAGEM DE SUCESSO
-    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
-    			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
-    			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
-    			PedidoCliente At = new PedidoCliente(produtos);
-				Principal.jdpPrincipal.add(At);
-				At.setVisible(true);
-				dispose();
+       		//TESTANDO SE O PEDIDO ESTA FAZIO
+    			if(produtos.isEmpty()){
+    				JOptionPane.showMessageDialog(jbtFinalizarPedido, "Atênção você não pode gerar um pedido sem itens, por favor selecione algum item para realizar um pedido !!!");
+    			}
+    			else{
+		       			//MENSAGEM DE SUCESSO
+		    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
+		    			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
+		    			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
+		    			PedidoCliente At = new PedidoCliente(produtos);
+						Principal.jdpPrincipal.add(At);
+						At.setVisible(true);
+						dispose();
+    			}
        		}
         });
         jpLanche.add(jbtFinalizarPedido);
@@ -400,13 +444,18 @@ public class Cardapio extends javax.swing.JInternalFrame {
         jbtAdicionar.addActionListener(new ActionListener() {	
        		@Override
        		public void actionPerformed(ActionEvent e) {
-       			//AÇÕES DO BOTÃO ADICIONAR
-       			int linha = jtAlmoco.getSelectedRow();
-       			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
-       			Integer codigo = Integer.valueOf((String) dtmAlmocoBifeLivre.getValueAt(linha, 0));
-       			//ADICIONANDO O PRODUTO A LISTA
-       			produtos.add(produtoDao.buscar(codigo));
-       			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+       		//TESTANDO A O USUARIO SELECIONOU UMA LINHA DA TABELA
+    			if(jtAlmoco.getSelectedRowCount() == 0){
+    				JOptionPane.showMessageDialog(jtAlmoco, "Por favor, Selecione um item para adicionar ao seu pedido !!!");
+    			}else{
+		       			//AÇÕES DO BOTÃO ADICIONAR
+		       			int linha = jtAlmoco.getSelectedRow();
+		       			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
+		       			Integer codigo = Integer.valueOf((String) dtmAlmocoBifeLivre.getValueAt(linha, 0));
+		       			//ADICIONANDO O PRODUTO A LISTA
+		       			produtos.add(produtoDao.buscar(codigo));
+		       			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+    			}
        		}
        });
       //ADICIONANDO O BOTAO ADICIONAR NO PAINEL
@@ -419,14 +468,20 @@ public class Cardapio extends javax.swing.JInternalFrame {
         jbtFinalizarPedido.addActionListener(new ActionListener() {	
        		@Override
        		public void actionPerformed(ActionEvent e) {
-       			//MENSAGEM DE SUCESSO
-    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
-    			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
-    			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
-    			PedidoCliente At = new PedidoCliente(produtos);
-				Principal.jdpPrincipal.add(At);
-				At.setVisible(true);
-				dispose();
+       		//TESTANDO SE O PEDIDO ESTA FAZIO
+    			if(produtos.isEmpty()){
+    				JOptionPane.showMessageDialog(jbtFinalizarPedido, "Atênção você não pode gerar um pedido sem itens, por favor selecione algum item para realizar um pedido !!!");
+    			}
+    			else{
+		       			//MENSAGEM DE SUCESSO
+		    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
+		    			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
+		    			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
+		    			PedidoCliente At = new PedidoCliente(produtos);
+						Principal.jdpPrincipal.add(At);
+						At.setVisible(true);
+						dispose();
+    			}
        		}
         });
         jpAlmocoLivre.add(jbtFinalizarPedido);
@@ -463,14 +518,19 @@ public class Cardapio extends javax.swing.JInternalFrame {
         jbtAdicionar.addActionListener(new ActionListener() {	
        		@Override
        		public void actionPerformed(ActionEvent e) {
-       			//AÇÕES DO BOTÃO ADICIONAR
-       			int linha = jtRodizio.getSelectedRow();
-       			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
-       			Integer codigo = Integer.valueOf((String) dtmRodizioPizza.getValueAt(linha, 0));
-       			//ADICIONANDO O PRODUTO A LISTA
-       			produtos.add(produtoDao.buscar(codigo));
-       			// AÇÕES DO BOTÃO ADICIONAR
-       			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+       		//TESTANDO A O USUARIO SELECIONOU UMA LINHA DA TABELA
+    			if(jtRodizio.getSelectedRowCount() == 0){
+    				JOptionPane.showMessageDialog(jtRodizio, "Por favor, Selecione um item para adicionar ao seu pedido !!!");
+    			}else{
+	       			//AÇÕES DO BOTÃO ADICIONAR
+	       			int linha = jtRodizio.getSelectedRow();
+	       			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
+	       			Integer codigo = Integer.valueOf((String) dtmRodizioPizza.getValueAt(linha, 0));
+	       			//ADICIONANDO O PRODUTO A LISTA
+	       			produtos.add(produtoDao.buscar(codigo));
+	       			// AÇÕES DO BOTÃO ADICIONAR
+	       			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+    			}
        		}
        });
       //ADICIONANDO O BOTAO ADICIONAR NO PAINEL
@@ -483,14 +543,20 @@ public class Cardapio extends javax.swing.JInternalFrame {
         jbtFinalizarPedido.addActionListener(new ActionListener() {	
        		@Override
        		public void actionPerformed(ActionEvent e) {
-       			//MENSAGEM DE SUCESSO
-    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
-    			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
-    			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
-    			PedidoCliente At = new PedidoCliente(produtos);
-				Principal.jdpPrincipal.add(At);
-				At.setVisible(true);
-				dispose();
+       		//TESTANDO SE O PEDIDO ESTA FAZIO
+    			if(produtos.isEmpty()){
+    				JOptionPane.showMessageDialog(jbtFinalizarPedido, "Atênção você não pode gerar um pedido sem itens, por favor selecione algum item para realizar um pedido !!!");
+    			}
+    			else{
+		       			//MENSAGEM DE SUCESSO
+		    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
+		    			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
+		    			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
+		    			PedidoCliente At = new PedidoCliente(produtos);
+						Principal.jdpPrincipal.add(At);
+						At.setVisible(true);
+						dispose();
+    			}
        		}
         });
         jpRodizioPizza.add(jbtFinalizarPedido);
@@ -527,14 +593,19 @@ public class Cardapio extends javax.swing.JInternalFrame {
         jbtAdicionar.addActionListener(new ActionListener() {	
        		@Override
        		public void actionPerformed(ActionEvent e) {
-       			//AÇÕES DO BOTÃO ADICIONAR
-       			int linha = jtBifeSopas.getSelectedRow();
-       			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
-       			Integer codigo = Integer.valueOf((String) dtmBifeSopas.getValueAt(linha, 0));
-       			//ADICIONANDO O PRODUTO A LISTA
-       			produtos.add(produtoDao.buscar(codigo));
-       			// AÇÕES DO BOTÃO ADICIONAR
-       			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+       		//TESTANDO A O USUARIO SELECIONOU UMA LINHA DA TABELA
+    			if(jtBifeSopas.getSelectedRowCount() == 0){
+    				JOptionPane.showMessageDialog(jtBifeSopas, "Por favor, Selecione um item para adicionar ao seu pedido !!!");
+    			}else{
+		       			//AÇÕES DO BOTÃO ADICIONAR
+		       			int linha = jtBifeSopas.getSelectedRow();
+		       			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
+		       			Integer codigo = Integer.valueOf((String) dtmBifeSopas.getValueAt(linha, 0));
+		       			//ADICIONANDO O PRODUTO A LISTA
+		       			produtos.add(produtoDao.buscar(codigo));
+		       			// AÇÕES DO BOTÃO ADICIONAR
+		       			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+		       		}
        		}
        });
       //ADICIONANDO O BOTAO ADICIONAR NO PAINEL
@@ -547,14 +618,20 @@ public class Cardapio extends javax.swing.JInternalFrame {
         jbtFinalizarPedido.addActionListener(new ActionListener() {	
        		@Override
        		public void actionPerformed(ActionEvent e) {
-       			//MENSAGEM DE SUCESSO
-    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
-    			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
-    			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
-    			PedidoCliente At = new PedidoCliente(produtos);
-				Principal.jdpPrincipal.add(At);
-				At.setVisible(true);
-				dispose();
+       		//TESTANDO SE O PEDIDO ESTA FAZIO
+    			if(produtos.isEmpty()){
+    				JOptionPane.showMessageDialog(jbtFinalizarPedido, "Atênção você não pode gerar um pedido sem itens, por favor selecione algum item para realizar um pedido !!!");
+    			}
+    			else{
+		       			//MENSAGEM DE SUCESSO
+		    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
+		    			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
+		    			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
+		    			PedidoCliente At = new PedidoCliente(produtos);
+						Principal.jdpPrincipal.add(At);
+						At.setVisible(true);
+						dispose();
+    			}
        		}
         });
         jpBifeSopas.add(jbtFinalizarPedido);
@@ -593,14 +670,19 @@ public class Cardapio extends javax.swing.JInternalFrame {
         jbtAdicionar.addActionListener(new ActionListener() {	
        		@Override
        		public void actionPerformed(ActionEvent e) {
-       			//AÇÕES DO BOTÃO ADICIONAR
-       			int linha = jtBebida.getSelectedRow();
-       			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
-       			Integer codigo = Integer.valueOf((String) dtmBebidas.getValueAt(linha, 0));
-       			//ADICIONANDO O PRODUTO A LISTA
-       			produtos.add(produtoDao.buscar(codigo));
-       			// AÇÕES DO BOTÃO ADICIONAR
-       			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+       		//TESTANDO A O USUARIO SELECIONOU UMA LINHA DA TABELA
+    			if(jtBebida.getSelectedRowCount() == 0){
+    				JOptionPane.showMessageDialog(jtBebida, "Por favor, Selecione um item para adicionar ao seu pedido !!!");
+    			}else{
+		       			//AÇÕES DO BOTÃO ADICIONAR
+		       			int linha = jtBebida.getSelectedRow();
+		       			//CONSULTANDO SE EXISTE O PRODUTO NO BANCO
+		       			Integer codigo = Integer.valueOf((String) dtmBebidas.getValueAt(linha, 0));
+		       			//ADICIONANDO O PRODUTO A LISTA
+		       			produtos.add(produtoDao.buscar(codigo));
+		       			// AÇÕES DO BOTÃO ADICIONAR
+		       			JOptionPane.showMessageDialog(jbtAdicionar, "Item adicionado com sucesso !!!");
+		       		}
        		}
        });
       //ADICIONANDO O BOTAO ADICIONAR NO PAINEL
@@ -613,14 +695,20 @@ public class Cardapio extends javax.swing.JInternalFrame {
         jbtFinalizarPedido.addActionListener(new ActionListener() {	
        		@Override
        		public void actionPerformed(ActionEvent e) {
-       			//MENSAGEM DE SUCESSO
-    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
-    			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
-    			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
-    			PedidoCliente At = new PedidoCliente(produtos);
-				Principal.jdpPrincipal.add(At);
-				At.setVisible(true);
-				dispose();
+       		//TESTANDO SE O PEDIDO ESTA FAZIO
+    			if(produtos.isEmpty()){
+    				JOptionPane.showMessageDialog(jbtFinalizarPedido, "Atênção você não pode gerar um pedido sem itens, por favor selecione algum item para realizar um pedido !!!");
+    			}
+    			else{
+		       			//MENSAGEM DE SUCESSO
+		    			JOptionPane.showMessageDialog(jbtFinalizarPedido, "Pedido Montado com sucessso !!!");
+		    			//PASSANDO O PEDIDO PARA O ATELA DE PEDIDOCLIENTE
+		    			//A LINHA ABAIXO É RESONSAVEL POR PEGAR TODOS OS ITENS ESCOLHIDOS E PASSAR A A PROXIMA TELA
+		    			PedidoCliente At = new PedidoCliente(produtos);
+						Principal.jdpPrincipal.add(At);
+						At.setVisible(true);
+						dispose();
+    			}
        		}
         });
         jpBebida.add(jbtFinalizarPedido);
