@@ -13,6 +13,8 @@ import br.com.dao.ProdutoDAO;
 import br.com.model.ItemPedido;
 import br.com.model.Pedido;
 import br.com.model.Produto;
+import br.com.tipo.SatusItemPedido;
+import br.com.tipo.StatusProduto;
 import br.com.tipo.TipoProduto;
 
 public class ItemPedidoJDBC implements ItemPedidoDAO {
@@ -26,11 +28,12 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
 
 	@Override
 	public void inserir(ItemPedido itemPedido) {
-		String sql = "insert into itempedido (codigoProduto, codigoPedido) values (?,?)";
+		String sql = "insert into itempedido (codigoProduto, codigoPedido) values (?,?,?)";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, itemPedido.getProduto().getCodigo());
 			pstmt.setInt(2, itemPedido.getPedido().getCodigo());
+			pstmt.setString(3, itemPedido.getStatus().toString());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -39,8 +42,16 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
 
 	@Override
 	public void alterar(ItemPedido itemPedido) {
-		// TODO Auto-generated method stub
-
+		String sql = "update itempedido set status = ? where codigoPedido = ?";
+		try{
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, itemPedido.getProduto().getCodigo());
+			pstmt.setInt(2, itemPedido.getPedido().getCodigo());
+			pstmt.setString(3, itemPedido.getStatus().toString());
+			pstmt.executeUpdate();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -65,6 +76,7 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
 				itemPedido.setProduto(produtoDAO.buscar(rs
 						.getInt("codigoProduto")));
 				itemPedido.setPedido(new Pedido(rs.getInt("codigoPedido")));
+				itemPedido.setStatus(SatusItemPedido.get(rs.getString("status")));
 			}
 
 		} catch (SQLException e) {
@@ -87,12 +99,13 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
 				Produto produto = new Produto();
 				produto.setCodigo(rs.getInt("codigProduto"));
 				produto.setDescricao(rs.getString("descricao"));
-				produto.setStatus(rs.getBoolean("status"));
+				produto.setStatus(StatusProduto.get(rs.getString("status")));
 				produto.setTipoProduto(TipoProduto.get(rs
 						.getString("tipoProduto")));
 				produto.setValor(rs.getDouble("valor"));
 				itemPedido.setProduto(produto);
 				itemPedido.setPedido(new Pedido(rs.getInt("codigoItemPedido")));
+				itemPedido.setStatus(SatusItemPedido.get(rs.getString("status")));
 				itens.add(itemPedido);
 			}
 
@@ -120,7 +133,7 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
 				p.setCodigo(rs.getInt("codigoProduto"));
 				p.setDescricao(rs.getString("descricao"));
 				p.setTipoProduto(TipoProduto.get(rs.getString("tipoProduto")));
-				p.setStatus(rs.getBoolean("status"));
+				p.setStatus(StatusProduto.get(rs.getString("status")));
 				p.setValor(rs.getDouble("valor"));
 				
 				itemPedido.setProduto(p);

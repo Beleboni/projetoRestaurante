@@ -16,6 +16,7 @@ import br.com.jdbc.ItemPedidoJDBC;
 import br.com.jdbc.PedidoJDBC;
 import br.com.model.ItemPedido;
 import br.com.model.Pedido;
+import br.com.tipo.StatusPedido;
 
 public class RelatorioPedido extends javax.swing.JInternalFrame {
 
@@ -76,7 +77,8 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 				for (ItemPedido item : itens) {
 					dtmLista.addRow(new String[] {
 							item.getProduto().getCodigo().toString(),
-							item.getProduto().getDescricao() });
+							item.getProduto().getDescricao(),
+							item.getStatus().toString()});
 				}
 			}
 		});
@@ -86,10 +88,12 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 		dtmLista = new DefaultTableModel();
 		dtmLista.addColumn("COD.");
 		dtmLista.addColumn("DESCRIÇÃO");
+		dtmLista.addColumn("STATUS");
 
 		jtTabela = new JTable(dtmLista);
 		jtTabela.getColumnModel().getColumn(0).setMaxWidth(50);
-		jtTabela.getColumnModel().getColumn(1).setMaxWidth(440);
+		jtTabela.getColumnModel().getColumn(1).setMaxWidth(350);
+		jtTabela.getColumnModel().getColumn(2).setMaxWidth(90);
 		jspRolagem = new JScrollPane(jtTabela);
 		jspRolagem.setBounds(20, 100, 490, 240);
 		getContentPane().add(jspRolagem);
@@ -106,7 +110,7 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 				Pedido pedido = pedidoDAO.buscar(num_mesa);
 				
 				//ALTERANDO O PEDIDO
-				pedido.setStatus(false);				
+				pedido.setStatus(StatusPedido.CAIXA);				
 				pedidoDAO.alterar(pedido);
 				
 				//REMOVENDO A MESA SELECIONADA DO COMBOBOX

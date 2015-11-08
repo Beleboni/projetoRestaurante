@@ -13,7 +13,8 @@ import br.com.dao.FuncionarioDAO;
 import br.com.estilo.Mascara;
 import br.com.jdbc.FuncionarioJDBC;
 import br.com.model.Funcionario;
-import br.com.tipo.Setor;
+import br.com.tipo.StatusSetor;
+import br.com.tipo.StatusFuncionario;
 
 
 public class CadastroFuncionario extends javax.swing.JInternalFrame {
@@ -168,22 +169,22 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 					// PEGANDO A SELEÇÃO USANDO O ENUM
 					switch (jcbSetor.getSelectedIndex()) {
 					case 0:
-						funcionario.setSetor(Setor.ADMINISTRADOR);
+						funcionario.setSetor(StatusSetor.ADMINISTRADOR);
 						break;
 					case 1:
-						funcionario.setSetor(Setor.CAIXA);
+						funcionario.setSetor(StatusSetor.CAIXA);
 						break;
 					case 2:
-						funcionario.setSetor(Setor.COZINHEIRO);
+						funcionario.setSetor(StatusSetor.COZINHEIRO);
 						break;
 					case 3:
-						funcionario.setSetor(Setor.GARCOM);
+						funcionario.setSetor(StatusSetor.GARCOM);
 						break;
 					}
 					funcionario.setAdmissao(LocalDate.now());
 					funcionario.setUsuario(jtfUsuario.getText());
 					funcionario.setSenha(new String(jpfSenha.getPassword()));
-					funcionario.setStatus(true);
+					funcionario.setStatus(StatusFuncionario.ATIVO);
 
 					// CADASTRADO O FUNCIONARIO
 					funcionarioDAO.inserir(funcionario);

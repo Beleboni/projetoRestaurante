@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.conexao.Conexao;
 import br.com.dao.ProdutoDAO;
 import br.com.model.Produto;
+import br.com.tipo.StatusProduto;
 import br.com.tipo.TipoProduto;
 
 import java.sql.Connection;
@@ -31,7 +32,7 @@ public class ProdutoJDBC implements ProdutoDAO {
 			pstmt.setString(1, produto.getTipoProduto().toString());
 			pstmt.setDouble(2, produto.getValor());
 			pstmt.setString(3, produto.getDescricao());	
-			pstmt.setBoolean(4, produto.getStatus());
+			pstmt.setString(4, produto.getStatus().toString());
 			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -49,7 +50,7 @@ public class ProdutoJDBC implements ProdutoDAO {
 			pstmt.setString(1, produto.getTipoProduto().toString());
 			pstmt.setDouble(2, produto.getValor());
 			pstmt.setString(3, produto.getDescricao());	
-			pstmt.setBoolean(4, produto.getStatus());
+			pstmt.setString(4, produto.getStatus().toString());
 			pstmt.setInt(5, produto.getCodigo());
 			pstmt.executeUpdate();
 			
@@ -81,7 +82,7 @@ public class ProdutoJDBC implements ProdutoDAO {
 				produto.setTipoProduto(TipoProduto.get(rs.getString("tipoProduto")));
 				produto.setValor(rs.getDouble("valor"));
 				produto.setDescricao(rs.getString("descricao"));
-				produto.setStatus(rs.getBoolean("status"));
+				produto.setStatus(StatusProduto.get(rs.getString("status")));
 			}
 			
 		} catch (SQLException e) {
@@ -107,7 +108,7 @@ public class ProdutoJDBC implements ProdutoDAO {
 				produto.setTipoProduto(TipoProduto.get(rs.getString("tipoProduto")));
 				produto.setValor(rs.getDouble("valor"));
 				produto.setDescricao(rs.getString("descricao"));
-				produto.setStatus(rs.getBoolean("status"));
+				produto.setStatus(StatusProduto.get(rs.getString("status")));
 				produtos.add(produto);
 			}
 			
@@ -123,7 +124,7 @@ public class ProdutoJDBC implements ProdutoDAO {
 		// LISTAR TODOS OS PRODUTO
 		List<Produto> produtos = new ArrayList<Produto>();
 		
-		String sql = "SELECT * FROM produto where tipoProduto = ?";
+		String sql = "SELECT * FROM produto where tipoProduto = ? and status = 'ATIVO'";
 		
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
@@ -136,7 +137,7 @@ public class ProdutoJDBC implements ProdutoDAO {
 				produto.setTipoProduto(TipoProduto.get(rs.getString("tipoProduto")));
 				produto.setValor(rs.getDouble("valor"));
 				produto.setDescricao(rs.getString("descricao"));
-				produto.setStatus(rs.getBoolean("status"));
+				produto.setStatus(StatusProduto.get(rs.getString("status")));
 				produtos.add(produto);
 			}
 			

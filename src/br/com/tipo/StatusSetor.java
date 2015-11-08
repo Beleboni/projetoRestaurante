@@ -1,13 +1,14 @@
 package br.com.tipo;
 
-public enum Setor {
+public enum StatusSetor {
 	ADMINISTRADOR,
 	CAIXA,
 	GARCOM,
 	COZINHEIRO;
 	
-	public static Setor get(String name) {
-		for (Setor s : values()) {
+	//COMPARA SE EXISTE
+	public static StatusSetor get(String name) {
+		for (StatusSetor s : values()) {
 			if(s.toString().equals(name)){
 				return s; 
 			}

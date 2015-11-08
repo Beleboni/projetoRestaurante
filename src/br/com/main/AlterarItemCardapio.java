@@ -11,6 +11,7 @@ import javax.swing.JTextArea;
 import br.com.dao.ProdutoDAO;
 import br.com.jdbc.ProdutoJDBC;
 import br.com.model.Produto;
+import br.com.tipo.StatusProduto;
 import br.com.tipo.TipoProduto;
 
 public class AlterarItemCardapio extends javax.swing.JInternalFrame {
@@ -92,7 +93,7 @@ public class AlterarItemCardapio extends javax.swing.JInternalFrame {
 		
 		//CARREGANDO INFORMAÇÕES NOS TEXTFIELDS
 		jcbTipoProduto.setSelectedIndex(produto.getTipoProduto().ordinal());
-		jcbStatus.setSelectedItem(produto.getStatus().booleanValue());
+		jcbStatus.setSelectedItem(produto.getStatus().ordinal());
 		jtfValor.setText(produto.getValor().toString());
 		jtaDescricao.append(produto.getDescricao().toString());
 
@@ -100,7 +101,7 @@ public class AlterarItemCardapio extends javax.swing.JInternalFrame {
 		//BOTOES
 		jbtAlterarCadastro.setIcon(new javax.swing.ImageIcon(getClass()
 				.getResource("/img/2.png"))); // NOI18N
-		jbtAlterarCadastro.setText("ATUALIZAR CADASTRO");
+		jbtAlterarCadastro.setText("ATUALIZAR PRODUTO DO CARDAPIO");
 		jbtAlterarCadastro
 				.addActionListener(new ActionListener() {
 					
@@ -137,7 +138,16 @@ public class AlterarItemCardapio extends javax.swing.JInternalFrame {
 						
 						produto.setValor(Double.parseDouble(jtfValor.getText()));
 						produto.setDescricao(jtaDescricao.getText());
-						produto.setStatus(jcbStatus.getSelectedIndex() == 0 ? true : false);
+						
+						//PEGANDO  O STATUS POR ENUM
+						switch (jcbStatus.getSelectedIndex()) {
+						case 0:
+							produto.setStatus(StatusProduto.ATIVO);
+							break;
+						case 1:
+							produto.setStatus(StatusProduto.INATIVO);
+							break;
+						}
 						
 						//ALTERARNDO O PRODUTO
 						ProdutoDAO produtoDAO = new ProdutoJDBC();
@@ -152,7 +162,7 @@ public class AlterarItemCardapio extends javax.swing.JInternalFrame {
 					}
 				});
 		getContentPane().add(jbtAlterarCadastro);
-		jbtAlterarCadastro.setBounds(167, 329, 240, 30);
+		jbtAlterarCadastro.setBounds(20, 325, 240, 30);
 		
 		
 

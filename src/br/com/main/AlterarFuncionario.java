@@ -9,7 +9,8 @@ import javax.swing.JOptionPane;
 import br.com.dao.FuncionarioDAO;
 import br.com.jdbc.FuncionarioJDBC;
 import br.com.model.Funcionario;
-import br.com.tipo.Setor;
+import br.com.tipo.StatusSetor;
+import br.com.tipo.StatusFuncionario;
 
 public class AlterarFuncionario extends javax.swing.JInternalFrame {
 
@@ -122,7 +123,7 @@ public class AlterarFuncionario extends javax.swing.JInternalFrame {
 		jtfUsuario.setText(funcionario.getUsuario());
 		jtfSenha.setText(funcionario.getSenha());
 		jcbSetor.setSelectedIndex(funcionario.getSetor().ordinal());
-		jcbStatus.setSelectedItem(funcionario.getStatus().booleanValue());
+		jcbStatus.setSelectedItem(funcionario.getStatus().ordinal());
 		jtfNome.setText(funcionario.getNome());
 		jtfCpf.setText(funcionario.getCpf());
 		jtfUsuario.setText(funcionario.getUsuario());
@@ -146,21 +147,31 @@ public class AlterarFuncionario extends javax.swing.JInternalFrame {
 						// PEGANDO A SELEÇÃO USANDO O ENUM
 						switch (jcbSetor.getSelectedIndex()) {
 						case 0:
-							funcionario.setSetor(Setor.ADMINISTRADOR);
+							funcionario.setSetor(StatusSetor.ADMINISTRADOR);
 							break;
 						case 1:
-							funcionario.setSetor(Setor.CAIXA);
+							funcionario.setSetor(StatusSetor.CAIXA);
 							break;
 						case 2:
-							funcionario.setSetor(Setor.COZINHEIRO);
+							funcionario.setSetor(StatusSetor.COZINHEIRO);
 							break;
 						case 3:
-							funcionario.setSetor(Setor.GARCOM);
+							funcionario.setSetor(StatusSetor.GARCOM);
 							break;
 						}
 						funcionario.setUsuario(jtfUsuario.getText());
 						funcionario.setSenha(jtfSenha.getText());
-						funcionario.setStatus(jcbStatus.getSelectedIndex()  == 0 ? true : false);	
+						
+						//PEGANDO A SELEÇÃO DO STATUS DO COLABORADOS EM ENUM
+						switch (jcbStatus.getSelectedIndex()) {
+						case 0:
+							funcionario.setStatus(StatusFuncionario.ATIVO);
+							break;
+
+						case 1:
+							funcionario.setStatus(StatusFuncionario.INATIVO);
+							break;
+						}
 																		
 						//ALTERANDO O FUNCIONARIO
 						FuncionarioDAO funcionarioDAO = new FuncionarioJDBC();

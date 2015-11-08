@@ -11,7 +11,8 @@ import java.util.List;
 import br.com.conexao.Conexao;
 import br.com.dao.FuncionarioDAO;
 import br.com.model.Funcionario;
-import br.com.tipo.Setor;
+import br.com.tipo.StatusSetor;
+import br.com.tipo.StatusFuncionario;
 import br.com.util.DateUtil;
 
 public class FuncionarioJDBC implements FuncionarioDAO {
@@ -39,7 +40,7 @@ public class FuncionarioJDBC implements FuncionarioDAO {
 			pstmt.setString(5, funcionario.getUsuario());
 			pstmt.setString(6, funcionario.getSenha());
 			pstmt.setDate(7, Date.valueOf(funcionario.getAdmissao().toString()));
-			pstmt.setBoolean(8, funcionario.getStatus());
+			pstmt.setString(8, funcionario.getStatus().toString());
 			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -60,7 +61,7 @@ public class FuncionarioJDBC implements FuncionarioDAO {
 			pstmt.setString(4, funcionario.getSetor().toString());
 			pstmt.setString(5, funcionario.getUsuario());
 			pstmt.setString(6, funcionario.getSenha());
-			pstmt.setBoolean(7, funcionario.getStatus());
+			pstmt.setString(7, funcionario.getStatus().toString());
 			pstmt.setInt(8, funcionario.getCodigo());
 			pstmt.executeUpdate();
 			
@@ -103,11 +104,11 @@ public class FuncionarioJDBC implements FuncionarioDAO {
 					funcionario.setNome(rs.getString("nome"));
 					funcionario.setCpf(rs.getString("cpf"));
 					funcionario.setTelefone(rs.getString("telefone"));
-					funcionario.setSetor(Setor.get(rs.getString("setor")));
+					funcionario.setSetor(StatusSetor.get(rs.getString("setor")));
 					funcionario.setAdmissao(DateUtil.toLocalDate(rs.getString("admissao"), "yyyy-MM-dd"));
 					funcionario.setUsuario(rs.getString("usuario"));
 					funcionario.setSenha(rs.getString("senha"));
-					funcionario.setStatus(rs.getBoolean("status"));
+					funcionario.setStatus(StatusFuncionario.get(rs.getString("status")));
 				}
 				
 			} catch (SQLException e) {
@@ -133,11 +134,11 @@ public class FuncionarioJDBC implements FuncionarioDAO {
 				funcionario.setNome(rs.getString("nome"));
 				funcionario.setCpf(rs.getString("cpf"));
 				funcionario.setTelefone(rs.getString("telefone"));
-				funcionario.setSetor(Setor.get(rs.getString("setor")));
+				funcionario.setSetor(StatusSetor.get(rs.getString("setor")));
 				funcionario.setAdmissao(DateUtil.toLocalDate(rs.getString("admissao"), "yyyy-MM-dd"));
 				funcionario.setUsuario(rs.getString("usuario"));
 				funcionario.setUsuario(rs.getString("senha"));
-				funcionario.setStatus(rs.getBoolean("status"));
+				funcionario.setStatus(StatusFuncionario.get(rs.getString("status")));
 				funcionarios.add(funcionario);
 			}
 		} catch (SQLException e) {

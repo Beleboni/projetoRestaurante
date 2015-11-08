@@ -2,18 +2,19 @@ package br.com.model;
 
 import java.time.LocalDate;
 
-import br.com.tipo.Setor;
+import br.com.tipo.StatusSetor;
+import br.com.tipo.StatusFuncionario;
 
 public class Funcionario {
 	private Integer codigo;
 	private String nome;
 	private String cpf;
 	private String telefone;
-	private Setor setor;
+	private StatusSetor statusSetor;
 	private String usuario;
 	private String senha;
 	private LocalDate admissao;
-	private Boolean status = true;
+	private StatusFuncionario status;
 	
 	//CONSTRUTOR VAZIO
 	public Funcionario() {
@@ -21,12 +22,12 @@ public class Funcionario {
 	}
 	//CONSTRUTOR CHEIO
 	public Funcionario(Integer codigo, String nome, String cpf,
-			String telefone, Setor setor, String usuario, String senha, LocalDate admissao, Boolean status) {
+			String telefone, StatusSetor statusSetor, String usuario, String senha, LocalDate admissao, StatusFuncionario status) {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;
-		this.setor = setor;
+		this.statusSetor = statusSetor;
 		this.usuario = usuario;
 		this.senha = senha;
 		this.admissao = admissao;
@@ -58,11 +59,11 @@ public class Funcionario {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	public Setor getSetor() {
-		return setor;
+	public StatusSetor getSetor() {
+		return statusSetor;
 	}
-	public void setSetor(Setor setor) {
-		this.setor = setor;
+	public void setSetor(StatusSetor statusSetor) {
+		this.statusSetor = statusSetor;
 	}
 	public String getUsuario() {
 		return usuario;
@@ -82,12 +83,11 @@ public class Funcionario {
 	public void setAdmissao(LocalDate admissao) {
 		this.admissao = admissao;
 	}
-	public Boolean getStatus() {
+	public StatusFuncionario getStatus() {
 		return status;
 	}
-	public void setStatus(Boolean status) {
+	public void setStatus(StatusFuncionario status) {
 		this.status = status;
 	}
-	
 	
 }

@@ -18,6 +18,7 @@ import br.com.jdbc.PedidoJDBC;
 import br.com.model.ItemPedido;
 import br.com.model.Pedido;
 import br.com.model.Produto;
+import br.com.tipo.StatusPedido;
 
 public class PedidoCliente extends javax.swing.JInternalFrame {
 
@@ -137,7 +138,7 @@ public class PedidoCliente extends javax.swing.JInternalFrame {
 						// SALVAR UM PEDIDO
 						pedido.setMesa(jtfMesa.getText());
 						pedido.setDataPedido(LocalDate.now());
-						pedido.setStatus(true);
+						pedido.setStatus(StatusPedido.PROCESSANDO);
 						pedidoDAO.inserir(pedido);
 						pedido.setCodigo(pedidoDAO.ultimoPedidoId());
 

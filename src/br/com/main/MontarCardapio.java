@@ -14,6 +14,7 @@ import javax.swing.JTextArea;
 import br.com.dao.ProdutoDAO;
 import br.com.jdbc.ProdutoJDBC;
 import br.com.model.Produto;
+import br.com.tipo.StatusProduto;
 import br.com.tipo.TipoProduto;
 
 import javax.swing.JLabel;
@@ -177,7 +178,7 @@ public class MontarCardapio extends javax.swing.JInternalFrame {
 					
 					produto.setValor(Double.parseDouble(jtfValor.getText()));
 					produto.setDescricao(jtaDescricao.getText());
-					produto.setStatus(true);
+					produto.setStatus(StatusProduto.ATIVO);
 					
 					//CADASTRANDO O PRODUTO
 					produtoDao.inserir(produto);
