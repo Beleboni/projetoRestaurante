@@ -1,7 +1,7 @@
 package br.com.tipo;
 
 public enum StatusPedido {
-	CAIXA, COZINHA, GARCOM, PROCESSANDO;
+	CAIXA, COZINHA, GARCOM, PROCESSANDO, CONCLUIDO;
 	
 	//COMPARA SE EXISTE
 	public static StatusPedido get(String name){

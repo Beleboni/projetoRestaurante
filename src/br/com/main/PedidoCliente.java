@@ -18,6 +18,7 @@ import br.com.jdbc.PedidoJDBC;
 import br.com.model.ItemPedido;
 import br.com.model.Pedido;
 import br.com.model.Produto;
+import br.com.tipo.StatusItemPedido;
 import br.com.tipo.StatusPedido;
 
 public class PedidoCliente extends javax.swing.JInternalFrame {
@@ -139,6 +140,7 @@ public class PedidoCliente extends javax.swing.JInternalFrame {
 						pedido.setMesa(jtfMesa.getText());
 						pedido.setDataPedido(LocalDate.now());
 						pedido.setStatus(StatusPedido.PROCESSANDO);
+						pedido.setTotal(0.0);
 						pedidoDAO.inserir(pedido);
 						pedido.setCodigo(pedidoDAO.ultimoPedidoId());
 
@@ -151,6 +153,7 @@ public class PedidoCliente extends javax.swing.JInternalFrame {
 							ItemPedido item = new ItemPedido();
 							item.setProduto(prod);
 							item.setPedido(pedido);
+							item.setStatus(StatusItemPedido.PROCESSANDO);
 							itemPedidoDAO.inserir(item);
 						}
 						

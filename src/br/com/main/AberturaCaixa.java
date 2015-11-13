@@ -19,6 +19,7 @@ import br.com.jdbc.PedidoJDBC;
 import br.com.model.ItemPedido;
 import br.com.model.Pedido;
 import br.com.model.Produto;
+import br.com.tipo.StatusPedido;
 
 public class AberturaCaixa extends javax.swing.JInternalFrame {
 
@@ -28,7 +29,9 @@ public class AberturaCaixa extends javax.swing.JInternalFrame {
 	private ItemPedidoDAO itemDAO = new ItemPedidoJDBC();
 	private List<Pedido> pedidos;
 	private ArrayList<Produto> produtos;
+	private Pedido pedido;
 	private Double troco = 0.0;
+	private Integer num_mesa;
 
 	public AberturaCaixa() {
 		initComponents();
@@ -99,17 +102,14 @@ public class AberturaCaixa extends javax.swing.JInternalFrame {
 		jcbMesa = new JComboBox<String>();
 		getContentPane().add(jcbMesa);
 		// LISTANDO AS MESA QUE EXISTEM PEDIDOS
-//		pedidos = pedidoDAO.pedidoPronto();
-//		if (!pedidos.isEmpty()) {
-//			pedidos.forEach(p -> jcbMesa.addItem(p.getMesa().toString()));
-//		} else {
-//			jcbMesa.addItem("Não existem Pedidos");
-//		}
+		pedidos = pedidoDAO.pedidoPronto();
+		if (!pedidos.isEmpty()) {
+			pedidos.forEach(p -> jcbMesa.addItem(p.getMesa().toString()));
+		} else {
+			jcbMesa.addItem("Não existem Pedidos");
+		}
 		// AÇÕES DE ALIMENTAÇÃO DOCOMBO BOX
 		jcbMesa.addActionListener(new ActionListener() {
-
-			private Integer num_mesa;
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// LISTAR OS ITENS DO PEDIDO REFERENTE A SUA MESA
@@ -211,36 +211,6 @@ public class AberturaCaixa extends javax.swing.JInternalFrame {
 		getContentPane().add(jbtAbrirCaixa);
 		jbtAbrirCaixa.setBounds(548, 11, 160, 30);
 		
-		jbtFinalizarVenda.setIcon(new javax.swing.ImageIcon(getClass()
-				.getResource("/img/2.png")));
-		jbtFinalizarVenda.setText("FINALIZAR VENDA");
-		jbtFinalizarVenda.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				JOptionPane.showMessageDialog(jbtFinalizarVenda,
-						"Em construção");
-			}
-		});
-		getContentPane().add(jbtFinalizarVenda);
-		jbtFinalizarVenda.setBounds(548, 163, 160, 30);
-		jbtFinalizarVenda.setEnabled(false);
-
-		jbtEncerrarCaixa.setIcon(new javax.swing.ImageIcon(getClass()
-				.getResource("/img/2.png")));
-		jbtEncerrarCaixa.setText("ENCERRAR CAIXA");
-		jbtEncerrarCaixa.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane
-						.showMessageDialog(jbtEncerrarCaixa, "Em construção");
-			}
-		});
-		getContentPane().add(jbtEncerrarCaixa);
-		jbtEncerrarCaixa.setEnabled(false);
-		jbtEncerrarCaixa.setBounds(548, 214, 160, 30);
-		
 		jbtCalcularTroco.setText("CALCULAR");
 		jbtCalcularTroco.addActionListener(new ActionListener() {
 			@Override
@@ -258,7 +228,44 @@ public class AberturaCaixa extends javax.swing.JInternalFrame {
 		});
 		jbtCalcularTroco.setBounds(20, 294, 110, 30);
 		getContentPane().add(jbtCalcularTroco);
+		
+		jbtFinalizarVenda.setIcon(new javax.swing.ImageIcon(getClass()
+				.getResource("/img/2.png")));
+		jbtFinalizarVenda.setText("FINALIZAR VENDA");
+		jbtFinalizarVenda.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//CONSULTA SE EXISTE UMA ASSOCIAÇÃO DA MESA A UM PEDIDO
+				pedido = pedidoDAO.buscar(num_mesa);
+				//ALTERANDO OS DADOS DO PEDIDO
+				pedido.setStatus(StatusPedido.CONCLUIDO);
+				pedido.setTotal(Double.parseDouble(jtfTotal.getText().toString()));
+				pedidoDAO.alterar(pedido);
+				//REMOVENDO A MESA SELECIONANDA DO COMBOBOX
+				jcbMesa.removeItemAt(jcbMesa.getSelectedIndex());
+				
+				JOptionPane.showMessageDialog(jbtFinalizarVenda, "Pedido pago com sucesso !!!");
+			}
+		});
+		getContentPane().add(jbtFinalizarVenda);
+		jbtFinalizarVenda.setBounds(548, 163, 160, 30);
+		jbtFinalizarVenda.setEnabled(false);
 
+		
+		jbtEncerrarCaixa.setIcon(new javax.swing.ImageIcon(getClass()
+				.getResource("/img/2.png")));
+		jbtEncerrarCaixa.setText("ENCERRAR CAIXA");
+		jbtEncerrarCaixa.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane
+						.showMessageDialog(jbtEncerrarCaixa, "Em construção");
+			}
+		});
+		getContentPane().add(jbtEncerrarCaixa);
+		jbtEncerrarCaixa.setEnabled(false);
+		jbtEncerrarCaixa.setBounds(548, 214, 160, 30);
+		
 		setBounds(310, 70, 744, 454);
 	}
 

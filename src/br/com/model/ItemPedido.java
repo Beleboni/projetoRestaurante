@@ -1,15 +1,15 @@
 package br.com.model;
 
-import br.com.tipo.SatusItemPedido;
+import br.com.tipo.StatusItemPedido;
 
 public class ItemPedido {
 
 	private Integer codigo;
 	private Produto produto;
 	private Pedido pedido;
-	private SatusItemPedido status;
+	private StatusItemPedido status;
 
-	public ItemPedido(Integer itemPedido, Produto produto, Pedido pedido, SatusItemPedido status) {
+	public ItemPedido(Integer itemPedido, Produto produto, Pedido pedido, StatusItemPedido status) {
 		this.codigo = itemPedido;
 		this.produto = produto;
 		this.pedido = pedido;
@@ -38,10 +38,10 @@ public class ItemPedido {
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
-	public SatusItemPedido getStatus() {
+	public StatusItemPedido getStatus() {
 		return status;
 	}
-	public void setStatus(SatusItemPedido status) {
+	public void setStatus(StatusItemPedido status) {
 		this.status = status;
 	}
 }

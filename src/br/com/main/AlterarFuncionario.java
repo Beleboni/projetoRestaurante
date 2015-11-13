@@ -172,7 +172,7 @@ public class AlterarFuncionario extends javax.swing.JInternalFrame {
 							funcionario.setStatus(StatusFuncionario.INATIVO);
 							break;
 						}
-																		
+								
 						//ALTERANDO O FUNCIONARIO
 						FuncionarioDAO funcionarioDAO = new FuncionarioJDBC();
 						funcionarioDAO.alterar(funcionario);

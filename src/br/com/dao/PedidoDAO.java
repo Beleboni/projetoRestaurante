@@ -9,6 +9,7 @@ public interface PedidoDAO extends JdbcCRUD<Pedido>{
 	
 	Integer ultimoPedidoId();
 	List<Pedido> pedidoEmProcesso();
-//	List<Pedido> pedidoPronto();
+	List<Pedido> pedidoPronto();
+	List<Pedido> todosPedidosConcluidos();
 
 }

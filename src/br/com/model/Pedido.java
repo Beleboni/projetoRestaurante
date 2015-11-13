@@ -10,12 +10,14 @@ public class Pedido {
 	private String mesa;
 	private LocalDate dataPedido;
 	private StatusPedido status;
+	private Double total;
 
-	public Pedido(Integer codigo, String mesa, LocalDate dataPedido,StatusPedido status) {
+	public Pedido(Integer codigo, String mesa, LocalDate dataPedido,StatusPedido status, Double total) {
 		this.codigo = codigo;
 		this.mesa = mesa;
 		this.dataPedido = dataPedido;
 		this.status = status;
+		this.total = total;
 	}
 
 	public Pedido() {
@@ -49,14 +51,18 @@ public class Pedido {
 	public void setDataPedido(LocalDate dataPedido) {
 		this.dataPedido = dataPedido;
 	}
-	
 	public StatusPedido isProcesando(){
 		return status;
 	}
-	
-//	public boolean isPronto(){
-//		return status;
-//	}
+	public StatusPedido isPronto(){
+		return status;
+	}
+	public Double getTotal() {
+		return total;
+	}
+	public void setTotal(Double total) {
+		this.total = total;
+	}
 
 
 }

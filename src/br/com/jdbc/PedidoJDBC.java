@@ -26,12 +26,13 @@ public class PedidoJDBC implements PedidoDAO{
 	
 	@Override
 	public void inserir(Pedido pedido) {
-		String sql = "insert into pedido (mesa, dataPedido, status) values (?, ?, ?)";
+		String sql = "insert into pedido (mesa, dataPedido, status, total) values (?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, pedido.getMesa());
 			pstmt.setString(2,pedido.getDataPedido().toString());
 			pstmt.setString(3, pedido.getStatus().toString());
+			pstmt.setDouble(4, Double.parseDouble(pedido.getTotal().toString()));
 			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -41,13 +42,14 @@ public class PedidoJDBC implements PedidoDAO{
 
 	@Override
 	public void alterar(Pedido pedido) {
-		String sql = "update pedido set mesa=?, dataPedido= ?, status=? where codigoPedido = ?";
+		String sql = "update pedido set mesa=?, dataPedido= ?, status=?, total = ? where codigoPedido = ?";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, pedido.getMesa());
 			pstmt.setDate(2, Date.valueOf(pedido.getDataPedido().toString()));
 			pstmt.setString(3, pedido.getStatus().toString());
-			pstmt.setInt(4, pedido.getCodigo());
+			pstmt.setDouble(4, Double.parseDouble(pedido.getTotal().toString()));
+			pstmt.setInt(5, pedido.getCodigo());
 			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -84,6 +86,7 @@ public class PedidoJDBC implements PedidoDAO{
 				pedido.setMesa(rs.getString("mesa"));
 				pedido.setDataPedido(LocalDate.parse((rs.getString("dataPedido"))));
 				pedido.setStatus(StatusPedido.get(rs.getString("status")));
+				pedido.setTotal(rs.getDouble("total"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -106,6 +109,7 @@ public class PedidoJDBC implements PedidoDAO{
 				pedido.setMesa(rs.getString("mesa"));
 				pedido.setDataPedido(LocalDate.parse(rs.getDate("dataPedido").toString()));
 				pedido.setStatus(StatusPedido.get(rs.getString("status")));
+				pedido.setTotal(rs.getDouble("total"));
 				pedidos.add(pedido);
 			}
 		}catch(SQLException e){
@@ -142,15 +146,39 @@ public class PedidoJDBC implements PedidoDAO{
 		return listaFiltro;
 	}
 
-//	@Override
-//	public List<Pedido> pedidoPronto() {
-//		List<Pedido> listaFiltro = new ArrayList<>();
-//		for(Pedido ped: this.todos()){
-//			if(ped.isPronto() == false)
-//				listaFiltro.add(ped);
-//		}
-//		return listaFiltro;
-//	}
+	@Override
+	public List<Pedido> pedidoPronto() {
+		List<Pedido> listaFiltro = new ArrayList<>();
+		for(Pedido ped: this.todos()){
+			if(ped.isPronto() == StatusPedido.CAIXA)
+				listaFiltro.add(ped);
+		}
+		return listaFiltro;
+	}
+
+	@Override
+	public List<Pedido> todosPedidosConcluidos() {
+List<Pedido> pedidos = new ArrayList<Pedido>();
+		
+		String sql = "select * from pedido where status = 'CONCLUIDO'";
+		
+		try{
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()){
+				Pedido pedido = new Pedido();
+				pedido.setCodigo(rs.getInt("codigoPedido"));
+				pedido.setMesa(rs.getString("mesa"));
+				pedido.setDataPedido(LocalDate.parse(rs.getDate("dataPedido").toString()));
+				pedido.setStatus(StatusPedido.get(rs.getString("status")));
+				pedido.setTotal(rs.getDouble("total"));
+				pedidos.add(pedido);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return pedidos;
+	}
 
 	
 	

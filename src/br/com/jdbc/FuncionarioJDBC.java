@@ -33,7 +33,6 @@ public class FuncionarioJDBC implements FuncionarioDAO {
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, funcionario.getNome());
-
 			pstmt.setString(2, funcionario.getCpf());
 			pstmt.setString(3, funcionario.getTelefone());
 			pstmt.setString(4, funcionario.getSetor().toString());
