@@ -3,8 +3,12 @@ package br.com.main;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -12,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import br.com.conexao.Conexao;
 import br.com.dao.ItemPedidoDAO;
 import br.com.dao.PedidoDAO;
 import br.com.jdbc.ItemPedidoJDBC;
@@ -19,6 +24,7 @@ import br.com.jdbc.PedidoJDBC;
 import br.com.model.ItemPedido;
 import br.com.model.Pedido;
 import br.com.model.Produto;
+import br.com.relatorio.RelatorioUtil;
 import br.com.tipo.StatusPedido;
 
 public class AberturaCaixa extends javax.swing.JInternalFrame {
@@ -258,6 +264,17 @@ public class AberturaCaixa extends javax.swing.JInternalFrame {
 		jbtEncerrarCaixa.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				//MONTANDO O RELATORIO GERAL EM PDF
+				Map<String, Object> parametros = new HashMap<String, Object>();
+				//PASSANDO O ENDEREÇO DO JASPER
+				new RelatorioUtil().gerarPdf("src/br/com/relatorio/Relatorio_Pedidos.jasper", Conexao.getCon(), parametros);
+				try {
+					//ABRINDO O RELATORIO
+					java.awt.Desktop.getDesktop().open( new File( "relatorio.pdf" ) );
+				} catch (IOException e1) {
+					// CASSO DE ALGUM ERRO
+					e1.printStackTrace();
+				}
 				JOptionPane
 						.showMessageDialog(jbtEncerrarCaixa, "Em construção");
 			}

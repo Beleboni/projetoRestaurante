@@ -8,7 +8,7 @@ public class Principal extends javax.swing.JFrame {
 	
 	public Principal() {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);       
+        this.setExtendedState(MAXIMIZED_BOTH);  
     }
 
      public static void main(String args[]) {      
@@ -33,6 +33,7 @@ public class Principal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Principal().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }

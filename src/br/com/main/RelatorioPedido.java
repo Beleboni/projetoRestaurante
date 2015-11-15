@@ -2,7 +2,11 @@ package br.com.main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -10,12 +14,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import br.com.conexao.Conexao;
 import br.com.dao.ItemPedidoDAO;
 import br.com.dao.PedidoDAO;
 import br.com.jdbc.ItemPedidoJDBC;
 import br.com.jdbc.PedidoJDBC;
 import br.com.model.ItemPedido;
 import br.com.model.Pedido;
+import br.com.relatorio.RelatorioUtil;
 import br.com.tipo.StatusItemPedido;
 import br.com.tipo.StatusPedido;
 
@@ -42,6 +48,7 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 		jlbNome = new javax.swing.JLabel();
 		jbtAplicarAcao = new javax.swing.JButton();
 		jcbStatusItem = new javax.swing.JComboBox<String>();
+		jbtImprimir = new javax.swing.JButton();
 
 		setClosable(true);
 		setIconifiable(true);
@@ -135,7 +142,7 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 						itemPedido.setStatus(StatusItemPedido.ENTREGUE);
 						break;
 					case 1:
-						itemPedido.setStatus(StatusItemPedido.CANCELADO);
+						itemPedido.setStatus(StatusItemPedido.ENTREGUE);
 						break;
 					}
 					// ALTERANDO O STATUS DO ITEM DO PEDIDO
@@ -165,8 +172,8 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				//FOR TESTA SE TODOS OS ITENS DO PEDIDO FORMA PROCESSANDO				
 				for (ItemPedido itemPedido : itens) {
-						if(itemPedido.getStatus().equals(StatusItemPedido.ENTREGUE)|| itemPedido.getStatus().equals(StatusItemPedido.CANCELADO)){
-							JOptionPane.showMessageDialog(jbtMandarPedido, "Não");
+						if(itemPedido.getStatus().equals(StatusItemPedido.PROCESSANDO)){
+							JOptionPane.showMessageDialog(null, "Este pedido não está totamente processado, por favor entregue todos os itens !!! ");
 							return;
 						}
 				}
@@ -188,6 +195,28 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 		});
 		getContentPane().add(jbtMandarPedido);
 		jbtMandarPedido.setBounds(501, 351, 160, 30);
+		
+		jbtImprimir.setText("IMPRIMIR PEDIDO");
+		jbtImprimir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//IMPRIMIR RELATORIO DO PEDIDO
+				Map<String, Object> parametros = new HashMap<String, Object>();
+				//PASSANDO A MESSA SELECIONADA PARA BUSCAR O PEDIDO
+				parametros.put("mesa", Integer.valueOf(jcbMesa.getSelectedItem().toString()));
+				//GERANDO O PDF
+				new RelatorioUtil().gerarPdf("src/br/com/relatorio/Pedido_Cliente.jasper", Conexao.getCon(), parametros);
+				try {
+					//ABRINDO O PDF
+					java.awt.Desktop.getDesktop().open( new File( "relatorio.pdf" ) );
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				JOptionPane.showMessageDialog(jbtImprimir, "O pedido foi gerado com sucesso !!!");
+			}
+		});
+		getContentPane().add(jbtImprimir);
+		jbtImprimir.setBounds(500, 51, 160, 30);
 
 		setBounds(320, 150, 700, 435);
 	}
@@ -196,6 +225,7 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 	private javax.swing.JScrollPane jspRolagem;
 	private javax.swing.JButton jbtMandarPedido;
 	private javax.swing.JButton jbtAplicarAcao;
+	private javax.swing.JButton jbtImprimir;
 	private javax.swing.JComboBox<String> jcbMesa;
 	private javax.swing.JComboBox<String> jcbStatusItem;
 	private javax.swing.JLabel jlbNome;

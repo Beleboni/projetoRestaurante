@@ -157,8 +157,8 @@ public class PedidoJDBC implements PedidoDAO{
 	}
 
 	@Override
-	public List<Pedido> todosPedidosConcluidos() {
-List<Pedido> pedidos = new ArrayList<Pedido>();
+	public List<Pedido> todosPedidosConcluidos() {	
+		List<Pedido> pedidos = new ArrayList<Pedido>();
 		
 		String sql = "select * from pedido where status = 'CONCLUIDO'";
 		
@@ -178,6 +178,12 @@ List<Pedido> pedidos = new ArrayList<Pedido>();
 			e.printStackTrace();
 		}
 		return pedidos;
+	}
+
+	@Override
+	public Boolean verificaMesa() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

@@ -2,14 +2,21 @@ package br.com.main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import br.com.conexao.Conexao;
 import br.com.dao.PedidoDAO;
 import br.com.jdbc.PedidoJDBC;
 import br.com.model.Pedido;
+import br.com.relatorio.RelatorioUtil;
 
 public class RelatorioCaixa extends javax.swing.JInternalFrame {
 
@@ -80,7 +87,8 @@ public class RelatorioCaixa extends javax.swing.JInternalFrame {
         jbtFinalizar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(jbtFinalizar, "Em desenvolvimento");
+				JOptionPane.showMessageDialog(jbtFinalizar, "Caixa encerrado com Sucesso !!!");
+				dispose();
 			}
 		});
         getContentPane().add(jbtFinalizar);
@@ -90,7 +98,18 @@ public class RelatorioCaixa extends javax.swing.JInternalFrame {
         jbtImpimir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(jbtFinalizar, "Em desenvolvimento");
+				//MONTANDO O RELATORIO GERAL EM PDF
+				Map<String, Object> parametros = new HashMap<String, Object>();
+				//PASSANDO O ENDEREÇO DO JASPER
+				new RelatorioUtil().gerarPdf("src/br/com/relatorio/Relatorio_Pedidos.jasper", Conexao.getCon(), parametros);
+				try {
+					//ABRINDO O RELATORIO
+					java.awt.Desktop.getDesktop().open( new File( "relatorio.pdf" ) );
+				} catch (IOException e1) {
+					// CASSO DE ALGUM ERRO
+					e1.printStackTrace();
+				}
+				JOptionPane.showMessageDialog(jbtFinalizar, "O relatório foi gerado com sucesso !!!");
 			}
 		});
         getContentPane().add(jbtImpimir);
