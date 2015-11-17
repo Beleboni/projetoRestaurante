@@ -13,6 +13,7 @@ import br.com.jdbc.ProdutoJDBC;
 import br.com.model.Produto;
 import br.com.tipo.StatusProduto;
 import br.com.tipo.TipoProduto;
+import javax.swing.ImageIcon;
 
 public class AlterarItemCardapio extends javax.swing.JInternalFrame {
 
@@ -21,6 +22,7 @@ public class AlterarItemCardapio extends javax.swing.JInternalFrame {
 	
 	//PASSANDO O FUNCIONARIO SELECIONADO NA TELA CADASTROFUNCIONARIO
 	public AlterarItemCardapio(Produto produto) {
+		setFrameIcon(new ImageIcon(AlterarItemCardapio.class.getResource("/img/pequeno.png")));
 		//INCIANDO O FUNCIONARIO ACIMA
 		initComponents(produto);
 	}
@@ -40,7 +42,7 @@ public class AlterarItemCardapio extends javax.swing.JInternalFrame {
 
 		setClosable(true);
 		setIconifiable(true);
-		setTitle("ATERAR DADOS DO PRODUTO");
+		setTitle("BURGUER SOFT --  ATERAR DADOS DO PRODUTO");
 		getContentPane().setLayout(null);
 		
 		//LABELS

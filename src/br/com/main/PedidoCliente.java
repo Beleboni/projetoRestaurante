@@ -20,6 +20,7 @@ import br.com.model.Pedido;
 import br.com.model.Produto;
 import br.com.tipo.StatusItemPedido;
 import br.com.tipo.StatusPedido;
+import javax.swing.ImageIcon;
 
 public class PedidoCliente extends javax.swing.JInternalFrame {
 
@@ -31,6 +32,7 @@ public class PedidoCliente extends javax.swing.JInternalFrame {
 	private Pedido pedido = new Pedido();
 
 	public PedidoCliente(ArrayList<Produto> produtos) {
+		setFrameIcon(new ImageIcon(PedidoCliente.class.getResource("/img/pequeno.png")));
 		// TESTANDO SE A LISTA ESTÁ FAZIA
 		if (produtos != null) {
 			// SE ALISTA ESTIVER COM ALGUM ITEM ELE CARREGA JUNTO
@@ -58,7 +60,7 @@ public class PedidoCliente extends javax.swing.JInternalFrame {
 
 		setClosable(true);
 		setIconifiable(true);
-		setTitle("Menu pedido");
+		setTitle("BURGUER SOFT -- MEU PEDIDO");
 		getContentPane().setLayout(null);
 
 		// LABELS
@@ -130,38 +132,46 @@ public class PedidoCliente extends javax.swing.JInternalFrame {
 							.showMessageDialog(
 									jbtGerarPedido,
 									"Atenção, você não possui itens em seu pedido, escolha algum item para poder gerar seu pedido");
-				} else {
-					if (jtfMesa.getText().equals("")) {
-						JOptionPane
-								.showMessageDialog(jbtGerarPedido,
-										"Por Favor, Cadastre uma mesa para este Pedido");
-					} else {
-						// SALVAR UM PEDIDO
-						pedido.setMesa(jtfMesa.getText());
-						pedido.setDataPedido(LocalDate.now());
-						pedido.setStatus(StatusPedido.PROCESSANDO);
-						pedido.setTotal(0.0);
-						pedidoDAO.inserir(pedido);
-						pedido.setCodigo(pedidoDAO.ultimoPedidoId());
-
-						// SALVAR OS ITENS DO PEDIDO A CIMA
-						// A LISTA PRODUTOS CONTEM TODOS OS ITENS SELECIONADOS
-						// PELO USUÁRIO
-						// O FOR SERVE PARA PERCORER ESTA LISTA E ADICIONAR
-						// TODOS
-						for (Produto prod : produtos) {
-							ItemPedido item = new ItemPedido();
-							item.setProduto(prod);
-							item.setPedido(pedido);
-							item.setStatus(StatusItemPedido.PROCESSANDO);
-							itemPedidoDAO.inserir(item);
-						}
-						
-						JOptionPane.showMessageDialog(jbtGerarPedido,
-								"Pedido Realizado com sucesso.");
-						dispose();
-					}
+					return;
 				}
+				
+				String mesa = jtfMesa.getText();
+				if (mesa.isEmpty()) {
+					JOptionPane.showMessageDialog(jbtGerarPedido,
+							"Por Favor, Cadastre uma mesa para este Pedido");
+					
+					return;
+				} else if (pedidoDAO.isOcupada(Integer.parseInt(mesa))) {
+					JOptionPane.showMessageDialog(jbtGerarPedido,
+							"A mesa já possui um pedido. Por favor, tente outra.");
+					
+					return;
+				}
+
+				// SALVAR UM PEDIDO
+				pedido.setMesa(jtfMesa.getText());
+				pedido.setDataPedido(LocalDate.now());
+				pedido.setStatus(StatusPedido.PROCESSANDO);
+				pedido.setTotal(0.0);
+				pedidoDAO.inserir(pedido);
+				pedido.setCodigo(pedidoDAO.ultimoPedidoId());
+
+				// SALVAR OS ITENS DO PEDIDO A CIMA
+				// A LISTA PRODUTOS CONTEM TODOS OS ITENS SELECIONADOS
+				// PELO USUÁRIO
+				// O FOR SERVE PARA PERCORER ESTA LISTA E ADICIONAR
+				// TODOS
+				for (Produto prod : produtos) {
+					ItemPedido item = new ItemPedido();
+					item.setProduto(prod);
+					item.setPedido(pedido);
+					item.setStatus(StatusItemPedido.PROCESSANDO);
+					itemPedidoDAO.inserir(item);
+				}
+
+				JOptionPane.showMessageDialog(jbtGerarPedido,
+						"Pedido Realizado com sucesso.");
+				dispose();
 			}
 		});
 		getContentPane().add(jbtGerarPedido);
@@ -190,7 +200,7 @@ public class PedidoCliente extends javax.swing.JInternalFrame {
 							p.getDescricao().toString(),
 							p.getValor().toString() }));
 				}
-				
+
 				jtfTotal.setText(getTotal(produtos).toString());
 			}
 		});

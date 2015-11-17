@@ -11,6 +11,7 @@ import br.com.jdbc.FuncionarioJDBC;
 import br.com.model.Funcionario;
 import br.com.tipo.StatusSetor;
 import br.com.tipo.StatusFuncionario;
+import javax.swing.ImageIcon;
 
 public class AlterarFuncionario extends javax.swing.JInternalFrame {
 
@@ -19,6 +20,7 @@ public class AlterarFuncionario extends javax.swing.JInternalFrame {
 	
 	//PASSANDO O FUNCIONARIO SELECIONADO NA TELA CADASTROFUNCIONARIO
 	public AlterarFuncionario(Funcionario funcionario) {
+		setFrameIcon(new ImageIcon(AlterarFuncionario.class.getResource("/img/pequeno.png")));
 		//INCIANDO O FUNCIONARIO ACIMA
 		initComponents(funcionario);
 	}
@@ -44,7 +46,7 @@ public class AlterarFuncionario extends javax.swing.JInternalFrame {
 
 		setClosable(true);
 		setIconifiable(true);
-		setTitle("ATERAR DADOS DO FUNCIONARIO");
+		setTitle("BURGUER SOFT -- ATERAR DADOS DO FUNCIONARIO");
 		getContentPane().setLayout(null);
 		
 		//LABELS
@@ -130,8 +132,7 @@ public class AlterarFuncionario extends javax.swing.JInternalFrame {
 
 		
 		//BOTOES
-		jbtAlterarCadastro.setIcon(new javax.swing.ImageIcon(getClass()
-				.getResource("/img/2.png"))); 
+		jbtAlterarCadastro.setIcon(new ImageIcon(AlterarFuncionario.class.getResource("/img/2.png"))); 
 		jbtAlterarCadastro.setText("ALTERAR CADASTRO");
 		jbtAlterarCadastro
 				.addActionListener(new ActionListener() {
@@ -189,7 +190,7 @@ public class AlterarFuncionario extends javax.swing.JInternalFrame {
 		jbtAlterarCadastro.setBounds(70, 340, 240, 30);
 
 		//FIM DA TELA
-		setBounds(480, 160, 385, 412);
+		setBounds(480, 160, 397, 412);
 	}
 	
 	// DECLARANDO AS VARIAVEIS

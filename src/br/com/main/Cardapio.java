@@ -12,6 +12,7 @@ import br.com.dao.ProdutoDAO;
 import br.com.jdbc.ProdutoJDBC;
 import br.com.model.Produto;
 import br.com.tipo.TipoProduto;
+import javax.swing.ImageIcon;
 
 public class Cardapio extends javax.swing.JInternalFrame {
 	
@@ -28,6 +29,7 @@ public class Cardapio extends javax.swing.JInternalFrame {
 	private ArrayList<Produto> produtos;
 	
 	public Cardapio(ArrayList<Produto> produtos) {
+		setFrameIcon(new ImageIcon(Cardapio.class.getResource("/img/pequeno.png")));
 		//INICIA A LISTA DE PRODUTOS QUE SERÃO SELECIONADOS PELO USUARIO
 		this.produtos = produtos;
 		//TESTA SE A A LISTA DE PRODUTOS ESTÁ NULA

@@ -15,6 +15,7 @@ import br.com.jdbc.FuncionarioJDBC;
 import br.com.model.Funcionario;
 import br.com.tipo.StatusSetor;
 import br.com.tipo.StatusFuncionario;
+import javax.swing.ImageIcon;
 
 
 public class CadastroFuncionario extends javax.swing.JInternalFrame {
@@ -28,6 +29,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 	private JScrollPane jspRolagem;
 
 	public CadastroFuncionario() {
+		setFrameIcon(new ImageIcon(CadastroFuncionario.class.getResource("/img/pequeno.png")));
 		initComponents();
 	}
 
@@ -53,7 +55,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 		// INICIO DA TELA
 		setClosable(true);
 		setIconifiable(true);
-		setTitle("CADASTRO FUNCIONARIO");
+		setTitle("BURGUER SOFT --  CADASTRO FUNCIONARIO");
 		getContentPane().setLayout(null);
 
 		// LABELS

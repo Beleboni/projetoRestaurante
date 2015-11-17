@@ -2,45 +2,30 @@ package br.com.main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import br.com.model.Funcionario;
+import br.com.tipo.StatusSetor;
+import javax.swing.JLabel;
+import javax.swing.GroupLayout.Alignment;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Toolkit;
 
 public class Principal extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
+	private Funcionario funcionario;
 	
-	public Principal() {
+	public Principal(Funcionario funcionario) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/pequeno.png")));
+		this.funcionario = funcionario;
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);  
+        this.setExtendedState(MAXIMIZED_BOTH); 
     }
-
-     public static void main(String args[]) {      
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } 
-        catch (ClassNotFoundException ex) {
-            //java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-           // java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-           // java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-           // java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-                new Login().setVisible(true);
-            }
-        });
-    }
-   
+	
     private void initComponents() {
 
-        jdpPrincipal = new javax.swing.JDesktopPane();
+    	jdpPrincipal = new javax.swing.JDesktopPane();
         jmGerenciadorMain = new javax.swing.JMenuBar();
         jmGerenciadorFuncionario = new javax.swing.JMenu();
         jmiCadastrarFuncionario = new javax.swing.JMenuItem();
@@ -57,18 +42,53 @@ public class Principal extends javax.swing.JFrame {
         jmiLogout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("CONTROLE INTERNO RESTAURANTE");
+        setTitle("BURGUER SOFT -- CONTROLE INTERNO RESTAURANTE");
+        
+        //CONTROLE DE SEÇÕES
+        jlbUsuario = new JLabel("Usuário:");
+        jlbUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        jlbUsuario.setForeground(Color.WHITE);
+        
+        jlbSecao = new JLabel(funcionario.getNome().toString());
+        jlbSecao.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        jlbSecao.setForeground(Color.WHITE);
+        
+        jlbSetor = new JLabel("Setor:");
+        jlbSetor.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        jlbSetor.setForeground(Color.WHITE);
+        
+        jlbSecaoSetor = new JLabel(funcionario.getSetor().toString());
+        jlbSecaoSetor.setForeground(Color.WHITE);
+        jlbSecaoSetor.setFont(new Font("Tahoma", Font.PLAIN, 12));
 
+        //INICIANDO A PLICAÇÃO
         javax.swing.GroupLayout jdpPrincipalLayout = new javax.swing.GroupLayout(jdpPrincipal);
-        jdpPrincipal.setLayout(jdpPrincipalLayout);
         jdpPrincipalLayout.setHorizontalGroup(
-            jdpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1053, Short.MAX_VALUE)
+        	jdpPrincipalLayout.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(jdpPrincipalLayout.createSequentialGroup()
+        			.addContainerGap(1021, Short.MAX_VALUE)
+        			.addComponent(jlbUsuario)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jlbSecao)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addComponent(jlbSetor)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jlbSecaoSetor)
+        			.addGap(112))
         );
         jdpPrincipalLayout.setVerticalGroup(
-            jdpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
+        	jdpPrincipalLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jdpPrincipalLayout.createSequentialGroup()
+        			.addGap(22)
+        			.addGroup(jdpPrincipalLayout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jlbUsuario)
+        				.addComponent(jlbSecao)
+        				.addComponent(jlbSetor)
+        				.addComponent(jlbSecaoSetor))
+        			.addContainerGap(647, Short.MAX_VALUE))
         );
+        jdpPrincipal.setLayout(jdpPrincipalLayout);
+        
         
         //MENU DE COLABORADORES
         jmGerenciadorFuncionario.setText("GERENCIADOR DE COLABORADORES");
@@ -76,9 +96,13 @@ public class Principal extends javax.swing.JFrame {
         jmiCadastrarFuncionario.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(funcionario.getSetor() == StatusSetor.ADMINISTRADOR){
 			     	CadastroFuncionario obj=new CadastroFuncionario();
 			        jdpPrincipal.add(obj);
 			        obj.setVisible(true);
+				}else{
+					JOptionPane.showMessageDialog(null, "Atênção, Você não tem permissão de acesso");
+				}
 			}
 		});
         jmGerenciadorFuncionario.add(jmiCadastrarFuncionario);
@@ -90,9 +114,13 @@ public class Principal extends javax.swing.JFrame {
         jmiMontarCardapio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MontarCardapio obj=new MontarCardapio();
-		        jdpPrincipal.add(obj);
-		        obj.setVisible(true);
+				if(funcionario.getSetor() == StatusSetor.COZINHEIRO ||funcionario.getSetor() == StatusSetor.ADMINISTRADOR){
+					MontarCardapio obj=new MontarCardapio();
+			        jdpPrincipal.add(obj);
+			        obj.setVisible(true);
+				}else{
+					JOptionPane.showMessageDialog(null, "Atênção, Você não tem permissão de acesso");
+				}
 			}
 		});
         jmGerenciadorCardapio.add(jmiMontarCardapio);
@@ -104,23 +132,32 @@ public class Principal extends javax.swing.JFrame {
         jmiCardapio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				 Cardapio obj=new Cardapio(null);
-			        jdpPrincipal.add(obj);
-			        obj.setVisible(true);
+				if(funcionario.getSetor() == StatusSetor.GARCOM ||funcionario.getSetor() == StatusSetor.ADMINISTRADOR){
+					 	Cardapio obj=new Cardapio(null);
+				        jdpPrincipal.add(obj);
+				        obj.setVisible(true);
+				}else{
+					JOptionPane.showMessageDialog(null, "Atênção, Você não tem permissão de acesso");
+				}
 			}
 		});
         jmGerenciadorPedidoCliente.add(jmiCardapio);
         jmGerenciadorMain.add(jmGerenciadorPedidoCliente);
 
         //MENU DE PEDIDOS INTERNOS
-        jmGerenciadorPedidoInterno.setText("  GERENCIADOR DE PEDIDOS INTERNOS   ");
+        jmGerenciadorPedidoInterno.setText("GERENCIADOR DE PEDIDOS INTERNOS");
         jmiRelatorioPedido.setText("Relatorio de Pedido");
         jmiRelatorioPedido.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(funcionario.getSetor() == StatusSetor.GARCOM ||funcionario.getSetor() == StatusSetor.ADMINISTRADOR){
 				  RelatorioPedido obj=new RelatorioPedido();
 			        jdpPrincipal.add(obj);
 			        obj.setVisible(true);
+				}else{
+					JOptionPane.showMessageDialog(null, "Atênção, Você não tem permissão de acesso");
+				}
+				
 			}
 		});
         jmGerenciadorPedidoInterno.add(jmiRelatorioPedido);
@@ -132,9 +169,13 @@ public class Principal extends javax.swing.JFrame {
         jmiAbrirCaixa.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			    AberturaCaixa obj=new AberturaCaixa();
-		        jdpPrincipal.add(obj);
-		        obj.setVisible(true);
+				if(funcionario.getSetor() == StatusSetor.CAIXA){
+				    AberturaCaixa obj=new AberturaCaixa();
+			        jdpPrincipal.add(obj);
+			        obj.setVisible(true);
+				}else{
+					JOptionPane.showMessageDialog(null, "Atênção, Você não tem permissão de acesso");
+				}
 			}
 		});
         jmGerenciadorCaixa.add(jmiAbrirCaixa);
@@ -142,9 +183,14 @@ public class Principal extends javax.swing.JFrame {
         jmiRelatorioCaixa.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				RelatorioCaixa obj=new RelatorioCaixa();
-		        jdpPrincipal.add(obj);
-		        obj.setVisible(true);
+				if(funcionario.getSetor() == StatusSetor.CAIXA ||funcionario.getSetor() == StatusSetor.ADMINISTRADOR){
+					RelatorioCaixa obj=new RelatorioCaixa();
+			        jdpPrincipal.add(obj);
+			        obj.setVisible(true);
+				}else{
+					JOptionPane.showMessageDialog(null, "Atênção, Você não tem permissão de acesso");
+				}
+				
 			}
 		});
         jmGerenciadorCaixa.add(jmiRelatorioCaixa);
@@ -177,6 +223,7 @@ public class Principal extends javax.swing.JFrame {
             .addComponent(jdpPrincipal, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         //FIM DA TELA
+        setVisible(false);
         setBounds(0, 0, 1079, 555);
     }
 
@@ -196,4 +243,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiLogout;
     private javax.swing.JMenuItem jmiRelatorioPedido;
     private javax.swing.JMenuItem jmiRelatorioCaixa;
+    private javax.swing.JLabel jlbUsuario;
+    private javax.swing.JLabel jlbSecao;
+    private javax.swing.JLabel jlbSetor;
+    private javax.swing.JLabel jlbSecaoSetor;
 }

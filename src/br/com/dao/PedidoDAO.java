@@ -11,6 +11,6 @@ public interface PedidoDAO extends JdbcCRUD<Pedido>{
 	List<Pedido> pedidoEmProcesso();
 	List<Pedido> pedidoPronto();
 	List<Pedido> todosPedidosConcluidos();
-	Boolean verificaMesa();
+	boolean isOcupada(Integer mesa);
 
 }

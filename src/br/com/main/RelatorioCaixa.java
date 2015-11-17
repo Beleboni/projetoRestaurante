@@ -17,6 +17,7 @@ import br.com.dao.PedidoDAO;
 import br.com.jdbc.PedidoJDBC;
 import br.com.model.Pedido;
 import br.com.relatorio.RelatorioUtil;
+import javax.swing.ImageIcon;
 
 public class RelatorioCaixa extends javax.swing.JInternalFrame {
 
@@ -25,6 +26,7 @@ public class RelatorioCaixa extends javax.swing.JInternalFrame {
 	private PedidoDAO pedidoDao = new PedidoJDBC();
 
 	public RelatorioCaixa() {
+		setFrameIcon(new ImageIcon(RelatorioCaixa.class.getResource("/img/pequeno.png")));
         initComponents();
     }
 
@@ -41,7 +43,7 @@ public class RelatorioCaixa extends javax.swing.JInternalFrame {
         setClosable(true);
         setForeground(java.awt.Color.white);
         setIconifiable(true);
-        setTitle("Gerenciamento de Caixa");
+        setTitle("BURGUER SOFT -- GERENCIAMENTO DE CAIXA");
         getContentPane().setLayout(null);
         
         //LABELS

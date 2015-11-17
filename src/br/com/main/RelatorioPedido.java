@@ -24,6 +24,7 @@ import br.com.model.Pedido;
 import br.com.relatorio.RelatorioUtil;
 import br.com.tipo.StatusItemPedido;
 import br.com.tipo.StatusPedido;
+import javax.swing.ImageIcon;
 
 public class RelatorioPedido extends javax.swing.JInternalFrame {
 
@@ -36,6 +37,7 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 	private List<ItemPedido> itens;
 
 	public RelatorioPedido() {
+		setFrameIcon(new ImageIcon(RelatorioPedido.class.getResource("/img/pequeno.png")));
 		initComponents();
 	}
 
@@ -52,7 +54,7 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 
 		setClosable(true);
 		setIconifiable(true);
-		setTitle("TODOS OS DADOS DO PEDIDO");
+		setTitle("TODOS BURGUER SOFT -- OS DADOS DO PEDIDO");
 		getContentPane().setLayout(null);
 
 		// LABELS

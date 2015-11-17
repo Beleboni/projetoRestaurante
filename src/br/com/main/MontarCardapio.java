@@ -33,6 +33,7 @@ public class MontarCardapio extends javax.swing.JInternalFrame {
 	private DefaultTableModel dtmLista;
 	
     public MontarCardapio() {
+    	setFrameIcon(new ImageIcon(MontarCardapio.class.getResource("/img/pequeno.png")));
         initComponents();
     }
 
@@ -55,7 +56,7 @@ public class MontarCardapio extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Montar Cardápio");
+        setTitle("BURGUER SOFT -- MONTAR CARDAPIO");
         getContentPane().setLayout(null);
 
         jlbItens.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
@@ -215,7 +216,7 @@ public class MontarCardapio extends javax.swing.JInternalFrame {
         getContentPane().add(lblAlterarDados);
         
         jbtAlterarDados = new JButton();
-        jbtAlterarDados.setIcon(new ImageIcon("C:\\Users\\Fernando\\Documents\\Bakup Fernando\\Projetos\\Java 4\\projetoRestaurante\\src\\img\\2.png"));
+        jbtAlterarDados.setIcon(new ImageIcon(MontarCardapio.class.getResource("/img/2.png")));
         jbtAlterarDados.setText("ALTERAR DADOS");
         jbtAlterarDados.addActionListener(new ActionListener() {
 			

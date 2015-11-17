@@ -26,6 +26,7 @@ import br.com.model.Pedido;
 import br.com.model.Produto;
 import br.com.relatorio.RelatorioUtil;
 import br.com.tipo.StatusPedido;
+import javax.swing.ImageIcon;
 
 public class AberturaCaixa extends javax.swing.JInternalFrame {
 
@@ -40,6 +41,7 @@ public class AberturaCaixa extends javax.swing.JInternalFrame {
 	private Integer num_mesa;
 
 	public AberturaCaixa() {
+		setFrameIcon(new ImageIcon(AberturaCaixa.class.getResource("/img/pequeno.png")));
 		initComponents();
 	}
 
@@ -71,7 +73,7 @@ public class AberturaCaixa extends javax.swing.JInternalFrame {
 
 		setClosable(true);
 		setIconifiable(true);
-		setTitle("Abrir Caixa");
+		setTitle("BURGUER SOFT -- ABRIR CAIXA");
 		getContentPane().setLayout(null);
 
 		// LABELS
