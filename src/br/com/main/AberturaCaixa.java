@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -26,7 +27,6 @@ import br.com.model.Pedido;
 import br.com.model.Produto;
 import br.com.relatorio.RelatorioUtil;
 import br.com.tipo.StatusPedido;
-import javax.swing.ImageIcon;
 
 public class AberturaCaixa extends javax.swing.JInternalFrame {
 
@@ -126,6 +126,7 @@ public class AberturaCaixa extends javax.swing.JInternalFrame {
 				// PEGANDO O ITEM SELECIONADO
 				num_mesa = new Integer(Integer.parseInt(jcbMesa
 						.getSelectedItem().toString()));
+				
 				List<ItemPedido> itens = itemDAO.itensPedidoPorMesa(num_mesa);
 				// ATIVANDO BOTÃO
 				jbtFinalizarVenda.setEnabled(true);
@@ -148,7 +149,7 @@ public class AberturaCaixa extends javax.swing.JInternalFrame {
 				jtfTotal.setText(getTotalPedido(produtos).toString());
 				//HABILITANDO A ENTRADA DO TROCO
 				jtfEntradaCliente.setEnabled(true);
-
+				
 			}
 		});
 		jcbMesa.setEnabled(false);

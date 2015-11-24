@@ -2,15 +2,23 @@ package br.com.main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JOptionPane;
+
 import br.com.model.Funcionario;
 import br.com.tipo.StatusSetor;
+
 import javax.swing.JLabel;
 import javax.swing.GroupLayout.Alignment;
+
 import java.awt.Color;
 import java.awt.Font;
+
 import javax.swing.LayoutStyle.ComponentPlacement;
+
 import java.awt.Toolkit;
+
+import javax.swing.ImageIcon;
 
 public class Principal extends javax.swing.JFrame {
 	private static final long serialVersionUID = 1L;
@@ -28,17 +36,23 @@ public class Principal extends javax.swing.JFrame {
     	jdpPrincipal = new javax.swing.JDesktopPane();
         jmGerenciadorMain = new javax.swing.JMenuBar();
         jmGerenciadorFuncionario = new javax.swing.JMenu();
+        jmGerenciadorFuncionario.setIcon(new ImageIcon(Principal.class.getResource("/img/cad_usuario.png")));
         jmiCadastrarFuncionario = new javax.swing.JMenuItem();
         jmGerenciadorCardapio = new javax.swing.JMenu();
+        jmGerenciadorCardapio.setIcon(new ImageIcon(Principal.class.getResource("/img/cad_cardapio.png")));
         jmiMontarCardapio = new javax.swing.JMenuItem();
         jmGerenciadorPedidoCliente = new javax.swing.JMenu();
+        jmGerenciadorPedidoCliente.setIcon(new ImageIcon(Principal.class.getResource("/img/pedido.png")));
         jmiCardapio = new javax.swing.JMenuItem();
         jmGerenciadorPedidoInterno = new javax.swing.JMenu();
+        jmGerenciadorPedidoInterno.setIcon(new ImageIcon(Principal.class.getResource("/img/pedido_interno.jpg")));
         jmiRelatorioPedido = new javax.swing.JMenuItem();
         jmGerenciadorCaixa = new javax.swing.JMenu();
+        jmGerenciadorCaixa.setIcon(new ImageIcon(Principal.class.getResource("/img/caixa.jpg")));
         jmiAbrirCaixa = new javax.swing.JMenuItem();
         jmiRelatorioCaixa = new javax.swing.JMenuItem();
         jmGerenciadorSistema = new javax.swing.JMenu();
+        jmGerenciadorSistema.setIcon(new ImageIcon(Principal.class.getResource("/img/sair_fim.png")));
         jmiLogout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -97,9 +111,10 @@ public class Principal extends javax.swing.JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(funcionario.getSetor() == StatusSetor.ADMINISTRADOR){
-			     	CadastroFuncionario obj=new CadastroFuncionario();
-			        jdpPrincipal.add(obj);
-			        obj.setVisible(true);
+			     	
+						CadastroFuncionario obj=new CadastroFuncionario();
+						jdpPrincipal.add(obj);
+						obj.setVisible(true);
 				}else{
 					JOptionPane.showMessageDialog(null, "Atênção, Você não tem permissão de acesso");
 				}

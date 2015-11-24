@@ -11,10 +11,12 @@ import javax.swing.table.DefaultTableModel;
 
 import br.com.dao.FuncionarioDAO;
 import br.com.estilo.Mascara;
+import br.com.exception.UsoException;
 import br.com.jdbc.FuncionarioJDBC;
 import br.com.model.Funcionario;
 import br.com.tipo.StatusSetor;
 import br.com.tipo.StatusFuncionario;
+
 import javax.swing.ImageIcon;
 
 
@@ -189,7 +191,12 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 					funcionario.setStatus(StatusFuncionario.ATIVO);
 
 					// CADASTRADO O FUNCIONARIO
-					funcionarioDAO.inserir(funcionario);
+					try {
+						funcionarioDAO.inserir(funcionario);
+					} catch (UsoException e1) {
+						JOptionPane.showMessageDialog(null, e1.getMessage());
+						return;
+					}
 
 					JOptionPane.showMessageDialog(null,
 							"Cadastro realizado com sucesso !!!");

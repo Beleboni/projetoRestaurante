@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import br.com.dao.ItemPedidoDAO;
 import br.com.dao.PedidoDAO;
+import br.com.exception.UsoException;
 import br.com.jdbc.ItemPedidoJDBC;
 import br.com.jdbc.PedidoJDBC;
 import br.com.model.ItemPedido;
@@ -20,6 +21,7 @@ import br.com.model.Pedido;
 import br.com.model.Produto;
 import br.com.tipo.StatusItemPedido;
 import br.com.tipo.StatusPedido;
+
 import javax.swing.ImageIcon;
 
 public class PedidoCliente extends javax.swing.JInternalFrame {
@@ -153,7 +155,11 @@ public class PedidoCliente extends javax.swing.JInternalFrame {
 				pedido.setDataPedido(LocalDate.now());
 				pedido.setStatus(StatusPedido.PROCESSANDO);
 				pedido.setTotal(0.0);
-				pedidoDAO.inserir(pedido);
+				try {
+					pedidoDAO.inserir(pedido);
+				} catch (UsoException e1) {
+					e1.printStackTrace();
+				}
 				pedido.setCodigo(pedidoDAO.ultimoPedidoId());
 
 				// SALVAR OS ITENS DO PEDIDO A CIMA
@@ -166,7 +172,12 @@ public class PedidoCliente extends javax.swing.JInternalFrame {
 					item.setProduto(prod);
 					item.setPedido(pedido);
 					item.setStatus(StatusItemPedido.PROCESSANDO);
-					itemPedidoDAO.inserir(item);
+					
+					try {
+						itemPedidoDAO.inserir(item);
+					} catch (UsoException e1) {
+						e1.printStackTrace();
+					}
 				}
 
 				JOptionPane.showMessageDialog(jbtGerarPedido,

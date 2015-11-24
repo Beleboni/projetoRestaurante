@@ -144,6 +144,7 @@ public class PedidoJDBC implements PedidoDAO {
 				listaFiltro.add(ped);
 			}
 		}
+
 		return listaFiltro;
 	}
 
@@ -188,20 +189,20 @@ public class PedidoJDBC implements PedidoDAO {
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, mesa);
-			
+
 			ResultSet rs = pstmt.executeQuery();
-			
-			rs.next();
-			Integer cod = rs.getInt("codigo");
-			
-			if (cod != null) {
-				return true;
+
+			if (rs.next()) {
+				Integer cod = rs.getInt("codigo");
+
+				if (cod != null) {
+					return true;
+				}
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return false;
 	}
 

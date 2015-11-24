@@ -63,9 +63,11 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
 			while (rs.next()) {
 				itemPedido = new ItemPedido();
 				itemPedido.setCodigo(rs.getInt("codigoItemPedido"));
-				itemPedido.setProduto(produtoDAO.buscar(rs.getInt("codigoProduto")));
+				itemPedido.setProduto(produtoDAO.buscar(rs
+						.getInt("codigoProduto")));
 				itemPedido.setPedido(new Pedido(rs.getInt("codigoPedido")));
-				itemPedido.setStatus(StatusItemPedido.get(rs.getString("status")));
+				itemPedido.setStatus(StatusItemPedido.get(rs
+						.getString("status")));
 			}
 
 		} catch (SQLException e) {
@@ -94,7 +96,8 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
 				produto.setValor(rs.getDouble("valor"));
 				itemPedido.setProduto(produto);
 				itemPedido.setPedido(new Pedido(rs.getInt("codigoItemPedido")));
-				itemPedido.setStatus(StatusItemPedido.get(rs.getString("status")));
+				itemPedido.setStatus(StatusItemPedido.get(rs
+						.getString("status")));
 				itens.add(itemPedido);
 			}
 
@@ -117,19 +120,20 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, mesa);
 			ResultSet rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
 				ItemPedido itemPedido = new ItemPedido();
 				itemPedido.setCodigo(rs.getInt("codItem"));
-				itemPedido.setStatus(StatusItemPedido.get(rs.getString("itemStatus")));
-				
+				itemPedido.setStatus(StatusItemPedido.get(rs
+						.getString("itemStatus")));
+
 				Produto p = new Produto();
 				p.setCodigo(rs.getInt("codProduto"));
 				p.setDescricao(rs.getString("prodDescricao"));
 				p.setTipoProduto(TipoProduto.get(rs.getString("prodTipo")));
 				p.setStatus(StatusProduto.get(rs.getString("prodStatus")));
 				p.setValor(rs.getDouble("prodValor"));
-				
+
 				itemPedido.setProduto(p);
 				itens.add(itemPedido);
 			}
@@ -140,16 +144,16 @@ public class ItemPedidoJDBC implements ItemPedidoDAO {
 
 		return itens;
 	}
-	
+
 	@Override
 	public void alterarStatus(ItemPedido itemPedido) {
 		String sql = "update itempedido set status = ? where codigoItemPedido = ?";
-		try{
+		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, itemPedido.getStatus().toString());
 			pstmt.setInt(2, itemPedido.getCodigo());
 			pstmt.executeUpdate();
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

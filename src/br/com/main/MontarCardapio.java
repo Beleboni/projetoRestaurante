@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextArea;
 
 import br.com.dao.ProdutoDAO;
+import br.com.exception.UsoException;
 import br.com.jdbc.ProdutoJDBC;
 import br.com.model.Produto;
 import br.com.tipo.StatusProduto;
@@ -132,7 +133,8 @@ public class MontarCardapio extends javax.swing.JInternalFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "FALTA CONCLUIR");
+				JOptionPane.showMessageDialog(null, "Está página será fechada !!!");
+				dispose();
 				
 			}
 		});
@@ -182,7 +184,11 @@ public class MontarCardapio extends javax.swing.JInternalFrame {
 					produto.setStatus(StatusProduto.ATIVO);
 					
 					//CADASTRANDO O PRODUTO
-					produtoDao.inserir(produto);
+					try {
+						produtoDao.inserir(produto);
+					} catch (UsoException e1) {
+						e1.printStackTrace();
+					}
 					JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso !!!");
 					
 					//LIMPAR CAMPOS

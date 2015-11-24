@@ -10,6 +10,7 @@ import java.util.List;
 
 import br.com.conexao.Conexao;
 import br.com.dao.FuncionarioDAO;
+import br.com.exception.UsoException;
 import br.com.model.Funcionario;
 import br.com.tipo.StatusSetor;
 import br.com.tipo.StatusFuncionario;
@@ -26,7 +27,7 @@ public class FuncionarioJDBC implements FuncionarioDAO {
 	}
 
 	@Override
-	public void inserir(Funcionario funcionario) {
+	public void inserir(Funcionario funcionario) throws UsoException{
 		// INSERIR FUNCIONARIO
 		String sql = "insert into funcionario (nome, cpf, telefone, setor, usuario, senha, admissao, status) value (?,?,?,?,?,?,?,?)";
 		try {
@@ -42,7 +43,7 @@ public class FuncionarioJDBC implements FuncionarioDAO {
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsoException("Usuário já existe !!!");
 		}
 
 	}

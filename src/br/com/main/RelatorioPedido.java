@@ -8,10 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.conexao.Conexao;
@@ -24,7 +27,6 @@ import br.com.model.Pedido;
 import br.com.relatorio.RelatorioUtil;
 import br.com.tipo.StatusItemPedido;
 import br.com.tipo.StatusPedido;
-import javax.swing.ImageIcon;
 
 public class RelatorioPedido extends javax.swing.JInternalFrame {
 
@@ -37,7 +39,8 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 	private List<ItemPedido> itens;
 
 	public RelatorioPedido() {
-		setFrameIcon(new ImageIcon(RelatorioPedido.class.getResource("/img/pequeno.png")));
+		setFrameIcon(new ImageIcon(
+				RelatorioPedido.class.getResource("/img/pequeno.png")));
 		initComponents();
 	}
 
@@ -54,11 +57,11 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 
 		setClosable(true);
 		setIconifiable(true);
-		setTitle("TODOS BURGUER SOFT -- OS DADOS DO PEDIDO");
+		setTitle("BURGUER SOFT -- OS DADOS DO PEDIDO");
 		getContentPane().setLayout(null);
 
 		// LABELS
-		jlbNome.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+		jlbNome.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); 
 		jlbNome.setText("MESA QUE CONTEM PEDIDOS");
 		getContentPane().add(jlbNome);
 		jlbNome.setBounds(20, 10, 190, 30);
@@ -79,24 +82,28 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// LISTAR OS ITENS DO PEDIDO REFERENTE A SUA MESA
-				// LIMPANDO A LISTA DE UMA MESA PARA OUTRA
-				dtmLista.setNumRows(0);
-				num_mesa = new Integer(Integer.parseInt(jcbMesa
-						.getSelectedItem().toString()));
+				acaoComboBox();
+			}
 
-				itens = itemDAO.itensPedidoPorMesa(num_mesa);
+		});
 
-				for (ItemPedido item : itens) {
-					// LISTA TODOS OS ITENS DOP PEDIDO SELECIONADO POR MESA
-					dtmLista.addRow(new String[] {
-							item.getCodigo().toString(),
-							item.getProduto().getDescricao(),
-							item.getStatus().toString() });
-				}
+		jcbMesa.setBounds(20, 51, 255, 30);
+		//PEGA AÇÃO NO INICIO DA CRIAÇÃO DO COMPONENTE
+		jcbMesa.addAncestorListener(new AncestorListener() {
+
+			@Override
+			public void ancestorRemoved(AncestorEvent event) {
+			}
+
+			@Override
+			public void ancestorMoved(AncestorEvent event) {
+			}
+
+			@Override
+			public void ancestorAdded(AncestorEvent event) {
+				acaoComboBox();
 			}
 		});
-		jcbMesa.setBounds(20, 51, 255, 30);
 
 		// TABELA
 		dtmLista = new DefaultTableModel();
@@ -117,8 +124,7 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 		jcbStatusItem.addItem("ENTREGUE");
 		jcbStatusItem.addItem("CANCELADO");
 		getContentPane().add(jcbStatusItem);
-		
-		
+
 		// BOTOES
 		jbtAplicarAcao.setText("APLICAR AÇÃO");
 		jbtAplicarAcao.addActionListener(new ActionListener() {
@@ -156,34 +162,36 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 
 					// LIMPANDO A TABELA
 					dtmLista.setNumRows(0);
-					
-					//TODO FALTA CONSTRUIR UM METODO QUE ATUALIZE EM TEMPO DE EXECUÇÃO
 				}
-
 			}
 		});
 		jbtAplicarAcao.setBounds(285, 351, 160, 30);
 		getContentPane().add(jbtAplicarAcao);
-		
-		
+
 		jbtMandarPedido.setIcon(new javax.swing.ImageIcon(getClass()
-				.getResource("/img/2.png"))); // NOI18N
+				.getResource("/img/2.png"))); 
 		jbtMandarPedido.setText("MANDAR PEDIDO");
 		jbtMandarPedido.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//FOR TESTA SE TODOS OS ITENS DO PEDIDO FORMA PROCESSANDO				
+				// TODO
+				// ´Pe.getMessage();
+				// FOR TESTA SE TODOS OS ITENS DO PEDIDO FORMA PROCESSANDO
 				for (ItemPedido itemPedido : itens) {
-						if(itemPedido.getStatus().equals(StatusItemPedido.PROCESSANDO)){
-							JOptionPane.showMessageDialog(null, "Este pedido não está totamente processado, por favor entregue todos os itens !!! ");
-							return;
-						}
+					if (StatusItemPedido.PROCESSANDO.equals(itemPedido
+							.getStatus())) {
+						JOptionPane
+								.showMessageDialog(
+										null,
+										"Este pedido não está totamente processado, por favor entregue todos os itens !!! ");
+						return;
+					}
 				}
 				// PEGANDO A MESA SELECIONADA
 				// NESTE CASO A OCORRE UMA CONSULTA NO BANCO PARA VER A
 				// ASSOCIAÇÃO DA MESA A UM PEDIDO
 				Pedido pedido = pedidoDAO.buscar(num_mesa);
-				
+
 				// ALTERANDO O PEDIDO
 				pedido.setStatus(StatusPedido.CAIXA);
 				pedidoDAO.alterar(pedido);
@@ -197,30 +205,52 @@ public class RelatorioPedido extends javax.swing.JInternalFrame {
 		});
 		getContentPane().add(jbtMandarPedido);
 		jbtMandarPedido.setBounds(501, 351, 160, 30);
-		
+
 		jbtImprimir.setText("IMPRIMIR PEDIDO");
 		jbtImprimir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//IMPRIMIR RELATORIO DO PEDIDO
+				// IMPRIMIR RELATORIO DO PEDIDO
 				Map<String, Object> parametros = new HashMap<String, Object>();
-				//PASSANDO A MESSA SELECIONADA PARA BUSCAR O PEDIDO
-				parametros.put("mesa", Integer.valueOf(jcbMesa.getSelectedItem().toString()));
-				//GERANDO O PDF
-				new RelatorioUtil().gerarPdf("src/br/com/relatorio/Pedido_Cliente.jasper", Conexao.getCon(), parametros);
+				// PASSANDO A MESSA SELECIONADA PARA BUSCAR O PEDIDO
+				parametros.put("mesa",
+						Integer.valueOf(jcbMesa.getSelectedItem().toString()));
+				// GERANDO O PDF
+				new RelatorioUtil().gerarPdf(
+						"src/br/com/relatorio/Pedido_Cliente.jasper",
+						Conexao.getCon(), parametros);
 				try {
-					//ABRINDO O PDF
-					java.awt.Desktop.getDesktop().open( new File( "relatorio.pdf" ) );
+					// ABRINDO O PDF
+					java.awt.Desktop.getDesktop().open(
+							new File("relatorio.pdf"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-				JOptionPane.showMessageDialog(jbtImprimir, "O pedido foi gerado com sucesso !!!");
+				JOptionPane.showMessageDialog(jbtImprimir,
+						"O pedido foi gerado com sucesso !!!");
 			}
 		});
 		getContentPane().add(jbtImprimir);
 		jbtImprimir.setBounds(500, 51, 160, 30);
 
 		setBounds(320, 150, 700, 435);
+	}
+
+	public void acaoComboBox() {
+		// LISTAR OS ITENS DO PEDIDO REFERENTE A SUA MESA
+		// LIMPANDO A LISTA DE UMA MESA PARA OUTRA
+		dtmLista.setNumRows(0);
+		num_mesa = new Integer(Integer.parseInt(jcbMesa.getSelectedItem()
+				.toString()));
+
+		itens = itemDAO.itensPedidoPorMesa(num_mesa);
+
+		for (ItemPedido item : itens) {
+			// LISTA TODOS OS ITENS DOP PEDIDO SELECIONADO POR MESA
+			dtmLista.addRow(new String[] { item.getCodigo().toString(),
+					item.getProduto().getDescricao(),
+					item.getStatus().toString() });
+		}
 	}
 
 	// INICIALIZAR VARIAVEIS

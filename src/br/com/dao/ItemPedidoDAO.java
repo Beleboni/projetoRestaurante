@@ -10,4 +10,5 @@ public interface ItemPedidoDAO extends JdbcCRUD<ItemPedido> {
 	List<ItemPedido> itensPedidoPorMesa(Integer mesa);
 	
 	void alterarStatus(ItemPedido itemPedido);
+	
 }
