@@ -13,6 +13,7 @@ import br.com.jdbc.ProdutoJDBC;
 import br.com.model.Produto;
 import br.com.tipo.StatusProduto;
 import br.com.tipo.TipoProduto;
+
 import javax.swing.ImageIcon;
 
 public class AlterarItemCardapio extends javax.swing.JInternalFrame {
@@ -164,7 +165,7 @@ public class AlterarItemCardapio extends javax.swing.JInternalFrame {
 					}
 				});
 		getContentPane().add(jbtAlterarCadastro);
-		jbtAlterarCadastro.setBounds(20, 325, 240, 30);
+		jbtAlterarCadastro.setBounds(20, 325, 281, 30);
 		
 		
 

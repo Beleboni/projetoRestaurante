@@ -129,7 +129,7 @@ public class Principal extends javax.swing.JFrame {
         jmiMontarCardapio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(funcionario.getSetor() == StatusSetor.COZINHEIRO ||funcionario.getSetor() == StatusSetor.ADMINISTRADOR){
+				if(funcionario.getSetor() == StatusSetor.COZINHEIRO ||funcionario.getSetor() == StatusSetor.ADMINISTRADOR || funcionario.getSetor() == StatusSetor.GARCOM){
 					MontarCardapio obj=new MontarCardapio();
 			        jdpPrincipal.add(obj);
 			        obj.setVisible(true);
